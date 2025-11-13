@@ -2,7 +2,7 @@
 import { NextResponse } from "next/server";
 import { renderToStream } from "@react-pdf/renderer";
 import ResumePDF from "@/components/resume/ResumePDF";
-import { getResumeData } from "@/content/resume";
+import { getResumeData } from "@/data/resume";
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
