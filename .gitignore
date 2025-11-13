@@ -1,0 +1,81 @@
+# -------------------------------
+# Node & Dependencies
+# -------------------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# -------------------------------
+# Next.js Cache & Build Output
+# -------------------------------
+.next/
+.next.static/
+out/
+dist/
+build/
+.cache/
+.vercel/
+
+# Turbopack
+.turbo/
+.turbopack/
+
+# -------------------------------
+# Environment Variables
+# -------------------------------
+.env
+.env.*
+!.env.example
+
+# EmailJS, Keys, Secrets
+# (Your NEXT_PUBLIC_* keys can remain public in Next.js,
+#  but we don't want to commit real .env files.)
+.env.local
+.env.development.local
+.env.production.local
+.env.test.local
+
+# -------------------------------
+# Logs
+# -------------------------------
+logs/
+*.log
+*.log.*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# -------------------------------
+# OS & Editor Files
+# -------------------------------
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+*.swo
+
+# -------------------------------
+# Misc
+# -------------------------------
+*.pem
+*.key
+*.crt
+
+# Optional: ignore thumbnails or assets generated locally
+public/resume-thumb.png
+public/screenshots/
+
+# Ignore backup files
+*~
+*.bak
+*.tmp
+
+# Prevent local deployments via vercel CLI being committed
+.vercel/project.json
