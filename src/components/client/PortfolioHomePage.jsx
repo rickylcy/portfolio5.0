@@ -26,6 +26,7 @@ import {
 import emailjs from "@emailjs/browser";
 import { useLang } from "@/lib/lang";
 import ResumePreviewCard from "@/components/resume/ResumePreviewCard";
+import SiteFooter from "@/components/site/SiteFooter";
 
 /* ---------------- home copy (local) ---------------- */
 
@@ -212,9 +213,9 @@ function ThinProgress({ show }) {
 
 function Hero({ t }) {
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center snap-start">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(60rem_60rem_at_50%_-10%,color-mix(in_oklab,var(--color-primary)_10%,transparent),transparent)]" />
-      <div className="mx-auto max-w-6xl px-4 py-14 md:py-24">
+      <div className="relative mx-auto max-w-6xl px-4 py-14 md:py-24 w-full">
         <div className="grid md:grid-cols-2 gap-10 items-center">
           <div>
             <div className="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs mb-4">
@@ -232,7 +233,7 @@ function Hero({ t }) {
 
             <div className="mt-6 flex flex-col sm:flex-row gap-3">
               <Button asChild size="lg">
-                <Link href="#projects">
+                <Link href="/projects">
                   {t.viewProjects} <MoveRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
@@ -310,25 +311,30 @@ function Highlights({ t }) {
     { icon: Globe, title: t.bilingualUX, desc: t.bilingualUXDesc },
   ];
   return (
-    <section id="highlights" className="mx-auto max-w-6xl px-4 py-12 md:py-16">
-      <SectionTitle
-        eyebrow={t.knownForEyebrow}
-        title={t.knownForTitle}
-        subtitle={t.knownForSub}
-      />
-      <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {items.map((it) => (
-          <Card
-            key={it.title}
-            className="p-5 hover:shadow-md transition-shadow"
-          >
-            <div className="flex items-center gap-3">
-              <it.icon className="h-5 w-5 text-primary" />
-              <div className="font-semibold">{it.title}</div>
-            </div>
-            <p className="mt-2 text-sm text-muted-foreground">{it.desc}</p>
-          </Card>
-        ))}
+    <section
+      id="highlights"
+      className="min-h-screen flex items-center justify-center snap-start"
+    >
+      <div className="mx-auto max-w-6xl px-4 py-12 md:py-16 w-full">
+        <SectionTitle
+          eyebrow={t.knownForEyebrow}
+          title={t.knownForTitle}
+          subtitle={t.knownForSub}
+        />
+        <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {items.map((it) => (
+            <Card
+              key={it.title}
+              className="p-5 hover:shadow-md transition-shadow"
+            >
+              <div className="flex items-center gap-3">
+                <it.icon className="h-5 w-5 text-primary" />
+                <div className="font-semibold">{it.title}</div>
+              </div>
+              <p className="mt-2 text-sm text-muted-foreground">{it.desc}</p>
+            </Card>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -342,21 +348,23 @@ function HowIWork({ t }) {
     { n: 4, title: t.polish, desc: t.polishDesc },
   ];
   return (
-    <section className="mx-auto max-w-6xl px-4 py-12 md:py-16">
-      <SectionTitle eyebrow={t.process} title={t.howIWork} />
-      <div className="mt-8 grid md:grid-cols-4 gap-4">
-        {steps.map((s) => (
-          <Card key={s.n} className="p-5 relative overflow-hidden">
-            <div className="absolute -right-10 -top-10 h-24 w-24 rounded-full bg-primary/10" />
-            <div className="flex items-center gap-3">
-              <div className="h-8 w-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-semibold">
-                {s.n}
+    <section className="min-h-screen flex items-center justify-center snap-start">
+      <div className="mx-auto max-w-6xl px-4 py-12 md:py-16 w-full">
+        <SectionTitle eyebrow={t.process} title={t.howIWork} />
+        <div className="mt-8 grid md:grid-cols-4 gap-4">
+          {steps.map((s) => (
+            <Card key={s.n} className="p-5 relative overflow-hidden">
+              <div className="absolute -right-10 -top-10 h-24 w-24 rounded-full bg-primary/10" />
+              <div className="flex items-center gap-3">
+                <div className="h-8 w-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-semibold">
+                  {s.n}
+                </div>
+                <div className="font-semibold">{s.title}</div>
               </div>
-              <div className="font-semibold">{s.title}</div>
-            </div>
-            <p className="mt-2 text-sm text-muted-foreground">{s.desc}</p>
-          </Card>
-        ))}
+              <p className="mt-2 text-sm text-muted-foreground">{s.desc}</p>
+            </Card>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -364,21 +372,23 @@ function HowIWork({ t }) {
 
 function CoreTech({ t, lang }) {
   return (
-    <section className="mx-auto max-w-6xl px-4 py-12 md:py-16">
-      <SectionTitle
-        eyebrow={t.coreSkillsEyebrow}
-        title={t.coreSkillsTitle}
-        subtitle={t.coreSkillsSub}
-      />
-      <div className="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-3">
-        {t.skills.map((f) => (
-          <Card key={`${lang}-skill-${f}`} className="p-4">
-            <div className="flex items-start gap-3">
-              <ScrollText className="h-5 w-5 text-primary mt-0.5" />
-              <div className="text-sm">{f}</div>
-            </div>
-          </Card>
-        ))}
+    <section className="min-h-screen flex items-center justify-center snap-start">
+      <div className="mx-auto max-w-6xl px-4 py-12 md:py-16 w-full">
+        <SectionTitle
+          eyebrow={t.coreSkillsEyebrow}
+          title={t.coreSkillsTitle}
+          subtitle={t.coreSkillsSub}
+        />
+        <div className="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-3">
+          {t.skills.map((f) => (
+            <Card key={`${lang}-skill-${f}`} className="p-4">
+              <div className="flex items-start gap-3">
+                <ScrollText className="h-5 w-5 text-primary mt-0.5" />
+                <div className="text-sm">{f}</div>
+              </div>
+            </Card>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -458,98 +468,105 @@ function ContactSection({ t, lang }) {
   }
 
   return (
-    <section id="contact" className="mx-auto max-w-6xl px-4 py-16">
-      <div className="text-center mb-10">
-        <h2 className="text-3xl font-bold tracking-tight">{t.contactTitle}</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          {t.contactSubtitle}
-        </p>
-      </div>
-
-      <div className="grid gap-6 md:grid-cols-2 items-start">
-        {/* Left: contact cards */}
-        <div className="space-y-4">
-          <Card className="p-6 flex flex-col items-start gap-3">
-            <div className="flex items-center gap-3">
-              <Mail className="h-6 w-6 text-primary" />
-              <div>
-                <p className="font-semibold">Email</p>
-                <p className="text-sm text-muted-foreground">
-                  rickylcy8183@gmail.com
-                </p>
-              </div>
-            </div>
-            <Button
-              asChild
-              variant="outline"
-              className="mt-2 rounded-full px-4"
-            >
-              <a href="mailto:rickylcy8183@gmail.com">
-                <Mail className="mr-2 h-4 w-4" />
-                {t.sendEmail}
-              </a>
-            </Button>
-          </Card>
-
-          <Card className="p-6 flex flex-col items-start gap-3">
-            <div className="flex items-center gap-3">
-              <LinkedinIcon className="h-6 w-6 text-primary" />
-              <div>
-                <p className="font-semibold">LinkedIn</p>
-                <p className="text-sm text-muted-foreground">
-                  Ching Yin (Ricky) Lau
-                </p>
-              </div>
-            </div>
-            <Button
-              asChild
-              variant="outline"
-              className="mt-2 rounded-full px-4"
-            >
-              <a
-                href="https://www.linkedin.com/in/ricky-lau-457825206/"
-                target="_blank"
-              >
-                <LinkedinIcon className="mr-2 h-4 w-4" />
-                {t.connectLinkedIn}
-              </a>
-            </Button>
-          </Card>
+    <section
+      id="contact"
+      className="min-h-screen flex items-center justify-center snap-start"
+    >
+      <div className="mx-auto max-w-6xl px-4 py-16 w-full">
+        <div className="text-center mb-10">
+          <h2 className="text-3xl font-bold tracking-tight">
+            {t.contactTitle}
+          </h2>
+          <p className="mt-2 text-sm text-muted-foreground">
+            {t.contactSubtitle}
+          </p>
         </div>
 
-        {/* Right: form */}
-        <Card className="p-6">
-          <h3 className="text-lg font-semibold mb-4">{t.contactFormTitle}</h3>
-          <form className="space-y-3" onSubmit={handleSubmit}>
-            <Input
-              placeholder={t.contactNamePlaceholder}
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              disabled={sending}
-            />
-            <Input
-              placeholder={t.contactEmailPlaceholder}
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              disabled={sending}
-            />
-            <textarea
-              className="min-h-[120px] w-full rounded-md border bg-background px-3 py-2 text-sm"
-              placeholder={t.contactMessagePlaceholder}
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              disabled={sending}
-            />
-            {err ? <p className="text-sm text-red-600">{err}</p> : null}
-            {ok ? (
-              <p className="text-sm text-emerald-600">{t.contactSuccess}</p>
-            ) : null}
-            <Button type="submit" className="w-full" disabled={sending}>
-              {sending ? "Sending…" : t.contactButton}
-            </Button>
-          </form>
-        </Card>
+        <div className="grid gap-6 md:grid-cols-2 items-start">
+          {/* Left: contact cards */}
+          <div className="space-y-4">
+            <Card className="p-6 flex flex-col items-start gap-3">
+              <div className="flex items-center gap-3">
+                <Mail className="h-6 w-6 text-primary" />
+                <div>
+                  <p className="font-semibold">Email</p>
+                  <p className="text-sm text-muted-foreground">
+                    rickylcy8183@gmail.com
+                  </p>
+                </div>
+              </div>
+              <Button
+                asChild
+                variant="outline"
+                className="mt-2 rounded-full px-4"
+              >
+                <a href="mailto:rickylcy8183@gmail.com">
+                  <Mail className="mr-2 h-4 w-4" />
+                  {t.sendEmail}
+                </a>
+              </Button>
+            </Card>
+
+            <Card className="p-6 flex flex-col items-start gap-3">
+              <div className="flex items-center gap-3">
+                <LinkedinIcon className="h-6 w-6 text-primary" />
+                <div>
+                  <p className="font-semibold">LinkedIn</p>
+                  <p className="text-sm text-muted-foreground">
+                    Ching Yin (Ricky) Lau
+                  </p>
+                </div>
+              </div>
+              <Button
+                asChild
+                variant="outline"
+                className="mt-2 rounded-full px-4"
+              >
+                <a
+                  href="https://www.linkedin.com/in/ricky-lau-457825206/"
+                  target="_blank"
+                >
+                  <LinkedinIcon className="mr-2 h-4 w-4" />
+                  {t.connectLinkedIn}
+                </a>
+              </Button>
+            </Card>
+          </div>
+
+          {/* Right: form */}
+          <Card className="p-6">
+            <h3 className="text-lg font-semibold mb-4">{t.contactFormTitle}</h3>
+            <form className="space-y-3" onSubmit={handleSubmit}>
+              <Input
+                placeholder={t.contactNamePlaceholder}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                disabled={sending}
+              />
+              <Input
+                placeholder={t.contactEmailPlaceholder}
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                disabled={sending}
+              />
+              <textarea
+                className="min-h-[120px] w-full rounded-md border bg-background px-3 py-2 text-sm"
+                placeholder={t.contactMessagePlaceholder}
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                disabled={sending}
+              />
+              {err ? <p className="text-sm text-red-600">{err}</p> : null}
+              {ok ? (
+                <p className="text-sm text-emerald-600">{t.contactSuccess}</p>
+              ) : null}
+              <Button type="submit" className="w-full" disabled={sending}>
+                {sending ? "Sending…" : t.contactButton}
+              </Button>
+            </form>
+          </Card>
+        </div>
       </div>
     </section>
   );
@@ -567,7 +584,7 @@ export default function PortfolioHomePage() {
   }, [lang]);
 
   return (
-    <main className="relative">
+    <main className="relative h-screen overflow-y-auto snap-y snap-proximity">
       <ThinProgress show={showTopBar} />
 
       <Hero t={t} />
@@ -575,13 +592,18 @@ export default function PortfolioHomePage() {
       <HowIWork t={t} />
       <CoreTech t={t} lang={lang} />
 
-      {/* Resume preview */}
-      <div className="mx-auto max-w-6xl px-4">
-        <ResumePreviewCard lang={lang} />
-      </div>
+      {/* Resume preview as its own snap section */}
+      <section className="md:min-h-screen md:flex md:items-center md:justify-center md:snap-start">
+        <div className="mx-auto max-w-6xl px-4 w-full">
+          <ResumePreviewCard lang={lang} />
+        </div>
+      </section>
 
       {/* Expanded contact */}
       <ContactSection t={t} lang={lang} />
+
+      {/* Footer now lives inside the scroll container, after all sections */}
+      <SiteFooter />
     </main>
   );
 }

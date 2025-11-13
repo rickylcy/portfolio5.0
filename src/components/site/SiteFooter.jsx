@@ -7,7 +7,7 @@ export default function SiteFooter() {
   const t = copy[lang];
 
   return (
-    <footer className="border-t">
+    <footer className="border-t ">
       <div className="mx-auto max-w-6xl px-4 py-8 text-sm text-muted-foreground flex flex-col md:flex-row gap-2 md:items-center md:justify-between">
         <div>© {new Date().getFullYear()} Ricky Lau</div>
         <div className="flex gap-4">
@@ -15,7 +15,7 @@ export default function SiteFooter() {
           <Link href="/projects" className="hover:text-foreground">
             {t.projects}
           </Link>
-          <Link href="/resume.pdf" className="hover:text-foreground">
+          <Link href="/resume" className="hover:text-foreground">
             {t.resume}
           </Link>
           <Link href="#contact" className="hover:text-foreground">
