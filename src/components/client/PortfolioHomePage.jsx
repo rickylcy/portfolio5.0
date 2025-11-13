@@ -34,7 +34,7 @@ const homeCopy = {
   en: {
     based: "Based in Brisbane · Bilingual (EN/中文)",
     hi: "Hi, I’m",
-    role: "Frontend-leaning Full-stack Developer.",
+    role: "A Full-stack Developer.",
     intro:
       "I build clean, fast web apps with React/Next.js, solid UI systems (Tailwind + shadcn), and practical integrations (APIs, printing, payments). I love shipping end-to-end: from UX to data.",
     viewProjects: "View Projects",
