@@ -12,7 +12,7 @@ GitHub: https://github.com/rickylcy
 LinkedIn: https://www.linkedin.com/in/ching-yin-lau-457825206/
 
 
-
+<br></br>
 
 
 Ricky Lau — Portfolio 5.0
@@ -21,6 +21,9 @@ A bilingual (EN/中文) personal portfolio built with Next.js 15, Tailwind CSS, 
 Designed with a clean aesthetic, scroll-snap interactions, responsive layouts, and a strong focus on accessibility and performance.
 
 This version (5.0) is a complete rebuild and upgrade from previous versions (v3.0 → v4.0 → v5.0), now featuring a centralised project system, enhanced visuals, and modern client UX.
+
+
+<br></br>
 
 🚀 Tech Stack
 
@@ -42,10 +45,14 @@ React-PDF (resume export)
 
 i18n (EN / 中文) — custom lightweight language system
 
+
+<br></br>
+
 🌐 Live Site
 
-👉 Link here (Vercel URL)
-(Add your Vercel deployment later.)
+👉 Link here (https://ricky-portfolio-v5.vercel.app/)
+
+<br></br>
 
 ✨ Features
 🔹 Fully bilingual (English / Chinese)
