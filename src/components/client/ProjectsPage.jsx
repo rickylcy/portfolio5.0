@@ -1,3 +1,4 @@
+// src/app/projects/page.jsx (or wherever this file lives)
 "use client";
 
 import { useState, useMemo } from "react";
@@ -33,6 +34,7 @@ const pageCopy = {
     roleLabel: "Role",
     stackLabel: "Tech stack",
     internalLabel: "Internal",
+    businessLabel: "Business / Client",
     personalLabel: "Personal",
     viewApp: "Open demo",
     viewCode: "View code",
@@ -40,8 +42,11 @@ const pageCopy = {
     screenshots: "Screenshots",
     close: "Close",
     noPublicDemo:
-      "This is a production or internal system, so there’s no public demo link. Here’s a quick overview and some screenshots instead.",
+      "This is a production, internal, or client system, so there’s no public demo link. Here’s a quick overview and some screenshots instead.",
     filterAll: "All",
+    problemTitle: "Why this project",
+    solutionTitle: "What I built",
+    impactTitle: "Impact",
   },
   zh: {
     eyebrow: "精選作品",
@@ -52,6 +57,7 @@ const pageCopy = {
     roleLabel: "角色",
     stackLabel: "技術堆疊",
     internalLabel: "內部專案",
+    businessLabel: "商業專案",
     personalLabel: "個人專案",
     viewApp: "開啟 Demo",
     viewCode: "檢視程式碼",
@@ -59,15 +65,114 @@ const pageCopy = {
     screenshots: "截圖瀏覽",
     close: "關閉",
     noPublicDemo:
-      "此為正式或內部系統，目前沒有對外公開 Demo，以下是簡介與部分畫面截圖。",
+      "此為正式、內部或商業系統，目前沒有對外公開 Demo，以下是簡介與部分畫面截圖。",
     filterAll: "全部",
+    problemTitle: "為什麼需要這個系統",
+    solutionTitle: "我負責的內容",
+    impactTitle: "帶來的改變",
   },
 };
 
 /* ---------------- project data ---------------- */
-/* gallery: you can replace these paths with real images later */
 
 const projects = [
+  {
+    id: "noodles-broadbeach",
+    kind: "business",
+    icon: Layers,
+    slug: "Noodle Broadbeach – Reporting, Accounting & Rostering System",
+    slugZh: "Noodle Broadbeach — 營業報表、會計與排班系統",
+    period: "2024 – Business client · Multi-store restaurant group",
+    role: "Full-stack developer",
+    roleZh: "全端開發",
+    stack:
+      "Next.js, NextAuth, Tailwind, MongoDB Atlas, REST API, Session Layer, Role-based access",
+    tags: ["Business", "Reporting", "Accounting", "Rostering", "Multi-store"],
+    descEn:
+      "Internal web app I designed and built for a multi-store noodle group to replace spreadsheets and WhatsApp for daily sales, basic accounting, and weekly rosters. One bilingual, role-based system instead of three disconnected workflows.",
+    descZh:
+      "為多間分店的麵店集團設計並開發的內部系統，用來取代原本用試算表與 WhatsApp 處理的每日營業報表、基本會計紀錄與每週排班，改為一套具備角色與權限、同時支援中英文的整合平台。",
+    problemEn: [
+      "Daily reports were done on paper or Excel, then sent as photos/files in chat. Managers had to chase each store and manually keep records.",
+      "Paper reports weren’t private, were easy to lose, and there was no single place to see per-store sales, invoices, and rosters together.",
+      "Some staff were more comfortable in Chinese, but there was no consistent, bilingual tool everyone could use.",
+    ],
+    solutionEn: [
+      "Designed a cloud-based daily reporting module: one structured form per store/day (lunch/dinner totals, payment channels, cash payout reason, notes) with filters, edit history, and Excel export.",
+      "Built a lightweight accounting area for tracking invoices and companies per store, with permissions so only the owner/accountant can adjust accounting data.",
+      "Implemented a weekly rostering tool per store with staff lists, multiple shifts per day, availability, public holidays, special bonus days, and a print-friendly roster view.",
+      "Set up role-based access (admin/manager/staff), store scoping, bilingual EN/中文 UI, and a session timeout/extend flow using NextAuth and custom middleware.",
+    ],
+    impactEn: [
+      "Store staff now submit reports directly into the system; managers no longer chase photos or spreadsheets across chat apps.",
+      "Managers can review sales, rosters, and key accounting records for all stores in one place, from laptop or phone.",
+      "The external accountant receives clean Excel exports instead of mixed formats and screenshots, reducing manual reconciliation.",
+      "The client gained a reusable internal product they can extend as they open more stores, instead of relying on ad-hoc tools.",
+    ],
+    problemZh: [
+      "每天的營業報表原本用紙張或 Excel 填寫，再用通訊軟體傳照片或檔案給主管，主管必須一間間收集並自己存檔。",
+      "紙本報表既不隱私也容易遺失，也沒有一個地方可以同時看到各店的營業數字、發票紀錄與排班。",
+      "部分員工習慣使用中文介面，但公司沒有一套統一、雙語且大家都能用的工具。",
+    ],
+    solutionZh: [
+      "設計雲端化的每日營業報表模組：每店每日一份結構化表單（午市／晚市金額、付款方式、現金支出與原因、備註），支援篩選、編輯歷史與 Excel 匯出。",
+      "開發輕量會計區，記錄各店與不同公司之間的發票與款項，並透過權限設定只讓老闆或會計調整會計相關資料。",
+      "實作用於每間分店的每週排班工具，可設定員工清單、每日多個班次、可上班時段、公眾假期與特別獎金日，並提供適合列印的排班視圖。",
+      "整合角色與權限（Admin / Manager / Staff）、分店範圍控管、英文／繁中雙語介面，以及使用 NextAuth 實作的 Session 倒數與延長登入機制。",
+    ],
+    impactZh: [
+      "門市員工現在直接在系統填報表，主管不再需要每天追著照片和試算表跑。",
+      "主管可以在同一個介面上查看所有分店的營業數字、排班以及重要會計紀錄，無論在電腦或手機都能使用。",
+      "外部會計拿到的是乾淨一致的 Excel 匯出，而不是格式混亂的截圖與檔案，大幅減少人工對帳時間。",
+      "客戶因此多了一套可隨著分店擴張而延伸的內部系統，而不是持續依賴臨時工具與人工流程。",
+    ],
+    liveUrl: null,
+    codeUrl: null,
+    gallery: [
+      "/projects/noodles/overview.png",
+      "/projects/noodles/report-list.png",
+      "/projects/noodles/report-edit.png",
+      "/projects/noodles/dashboard.png",
+      "/projects/noodles/roster-week.png",
+    ],
+  },
+
+  {
+    id: "visa-portal",
+    kind: "business",
+    icon: Globe2,
+    slug: "Visa Portal – Visa to China",
+    slugZh: "中國簽證申請入口網站",
+    period: "Side project · Live business client",
+    role: "Full-stack developer",
+    roleZh: "全端開發",
+    stack: "Next.js, forms, content pages",
+    tags: ["Business", "Portal", "Content"],
+    descEn:
+      "Public-facing site for a visa service business helping customers apply for visas to China. Focused on clear steps, enquiries, and trust-building content.",
+    descZh:
+      "為中國簽證代辦服務打造的對外網站，協助客戶了解申請流程並留下聯絡資訊。",
+    problemEn: [
+      "Customers were often unsure which visa type or documents they needed and kept asking the same questions by phone or message.",
+      "The business didn’t have a modern website to explain the process clearly or capture enquiries in a structured way.",
+    ],
+    solutionEn: [
+      "Designed and built a Next.js marketing/information site with clear step-by-step guidance, FAQ-style content, and contact options.",
+      "Structured the content so it can be extended later into full EN/中文 bilingual pages without changing the layout.",
+      "Optimised for simple maintenance, so the owner can update copy and pricing without deep technical knowledge.",
+    ],
+    impactEn: [
+      "Gave the business a professional online presence they can point new customers to instead of explaining everything from scratch.",
+      "Reduced repeated basic questions by directing people to the website’s process overview before they call.",
+    ],
+    liveUrl: "https://visatochina.com.au/",
+    codeUrl: null,
+    gallery: [
+      "/projects/visa-portal/home.png",
+      "/projects/visa-portal/steps.png",
+    ],
+  },
+
   {
     id: "mobile-ordering",
     kind: "internal",
@@ -84,6 +189,22 @@ const projects = [
       "End-to-end mobile ordering for dine-in and takeaway with QR table flows, printer mapping, kitchen labels, and admin portal.",
     descZh:
       "完整的行動點餐方案，支援內用與外帶 QR 掃碼流程、印表機群組與出單設定、廚房標籤與後台管理。",
+    problemEn: [
+      "Restaurants wanted QR table ordering and online takeaway without running a separate system from their existing POS.",
+      "Kitchen printers and label printers needed consistent routing per area (kitchen, drinks, sushi, etc.), but different stores had different layouts.",
+      "Manual re-typing of online orders into the POS was slow and error-prone.",
+    ],
+    solutionEn: [
+      "Built a responsive Next.js web app for QR table ordering and takeaway, integrating directly with the existing POS back-end.",
+      "Implemented flexible printer mapping (kitchen groups, label printers, receipt printers) controlled by store-level settings.",
+      "Handled ESC/POS and ZPL output for different printer types, including kitchen chit formatting and item/label templates.",
+      "Added an admin portal for stores to manage menus, surcharges, printer configuration, and basic reporting.",
+    ],
+    impactEn: [
+      "Reduced double-entry: online orders flow directly to the POS and the correct printers instead of being re-typed by staff.",
+      "Improved order accuracy and speed for both dine-in and takeaway, especially during busy periods.",
+      "Created a reusable white-label solution that can be rolled out to new stores with minimal configuration.",
+    ],
     liveUrl: null,
     codeUrl: null,
     gallery: [
@@ -92,6 +213,7 @@ const projects = [
       "/projects/mobile-ordering/kitchen.png",
     ],
   },
+
   {
     id: "sales-report",
     kind: "internal",
@@ -107,6 +229,19 @@ const projects = [
       "Responsive dashboard for store owners to explore daily and hourly sales, best/worst items, and payment breakdowns.",
     descZh:
       "提供店家檢視日／時銷售、熱銷與滯銷商品，以及付款方式比例的響應式儀表板。",
+    problemEn: [
+      "Store owners were exporting raw POS reports or Excel files and manually piecing together trends for each store.",
+      "It was hard to quickly answer questions like “What are our best 5 items this week?” or “Which hours are the quietest?”.",
+    ],
+    solutionEn: [
+      "Built a Next.js dashboard that calls existing company APIs and visualises the data with KPI cards and Recharts charts.",
+      "Implemented filters for date range, time window, and store selection, with a global state store so components stay in sync.",
+      "Added views for best/worst items, hourly and daily performance, and payment method breakdown.",
+    ],
+    impactEn: [
+      "Gave owners and managers a single responsive dashboard they can open on laptop or mobile to understand performance.",
+      "Made it easier to decide staffing and promotions based on real sales patterns instead of guessing.",
+    ],
     liveUrl: null,
     codeUrl: null,
     gallery: [
@@ -115,6 +250,7 @@ const projects = [
       "/projects/sales-report/hourly.png",
     ],
   },
+
   {
     id: "plan-craft",
     kind: "personal",
@@ -131,6 +267,19 @@ const projects = [
       "A flexible scheduling tool with drag-and-drop jobs, time slots, and shared plans—designed to work for many business types.",
     descZh:
       "可彈性配置的排程工具，支援拖曳任務、時間區間與共用排程，設計上適用於多種行業。",
+    problemEn: [
+      "Many small businesses I talk to use whiteboards or spreadsheets to plan jobs, which don’t handle recurring work or team visibility very well.",
+      "I wanted to explore more advanced scheduling UX patterns (drag-and-drop, time slots, shared boards) beyond basic calendars.",
+    ],
+    solutionEn: [
+      "Designed a board-style UI where jobs can be dragged between days and time slots, with basic metadata for each job.",
+      "Experimented with a data model that could support recurrence rules, multiple assignees, and different business types.",
+      "Planned real-time collaboration using Redis/pub-sub so multiple users can see updates live.",
+    ],
+    impactEn: [
+      "Serves as a playground for scheduling UX and data modelling that I can later bring into real client projects.",
+      "Demonstrates how I think about designing generic tools that can still feel tailored to specific workflows.",
+    ],
     liveUrl: null,
     codeUrl: null,
     gallery: [
@@ -138,6 +287,7 @@ const projects = [
       "/projects/plan-craft/detail.png",
     ],
   },
+
   {
     id: "printcraft",
     kind: "personal",
@@ -154,6 +304,19 @@ const projects = [
       "A print-focused studio for building label templates and sending ZPL / ESC/POS jobs to different devices and shops.",
     descZh:
       "以列印為核心的工作室，提供標籤模板管理與 ZPL／ESC/POS 出單流程，支援多店與多裝置概念。",
+    problemEn: [
+      "In my day job, label and receipt printing across different printers and shops is a constant pain point.",
+      "Most tools are either too generic or locked into one hardware ecosystem, making it hard to manage multiple layouts and destinations.",
+    ],
+    solutionEn: [
+      "Prototyped a web studio for designing label layouts and mapping them to ZPL/ESC/POS templates.",
+      "Explored a multi-workspace concept where each shop or brand can manage its own templates and printer targets.",
+      "Used this project to refine my understanding of ZPL, ESC/POS, and how to send raw jobs reliably from a web app.",
+    ],
+    impactEn: [
+      "Gave me a reusable base for future label/receipt tools that need more flexibility than a single hard-coded layout.",
+      "Deepened my experience with printer languages and edge cases, which I apply directly in production POS projects.",
+    ],
     liveUrl: null,
     codeUrl: null,
     gallery: [
@@ -161,6 +324,7 @@ const projects = [
       "/projects/printcraft/labels.png",
     ],
   },
+
   {
     id: "amherst",
     kind: "internal",
@@ -175,10 +339,24 @@ const projects = [
     descEn:
       "Online pre-order portal for school sushi days, connected to the POS system and kitchen printing.",
     descZh: "服務學校壽司日的線上預訂網站，與 POS 系統與廚房出單整合。",
+    problemEn: [
+      "The school was collecting sushi orders with paper forms and cash envelopes, which was slow and error-prone.",
+      "Canteen staff had to manually count orders and key them into the POS before the day started.",
+    ],
+    solutionEn: [
+      "Built a Next.js portal where parents can sign in with Google and place pre-paid sushi orders for their children.",
+      "Integrated the portal with the POS back-end and kitchen printing so orders arrive in a format staff already understand.",
+      "Designed a parent/child account model so one parent account can manage multiple students.",
+    ],
+    impactEn: [
+      "Reduced manual counting and data entry for school and canteen staff on sushi days.",
+      "Gave parents a more modern experience for placing and paying for orders online.",
+    ],
     liveUrl: null,
     codeUrl: null,
     gallery: ["/projects/amherst/home.png", "/projects/amherst/orders.png"],
   },
+
   {
     id: "chat-app",
     kind: "personal",
@@ -194,10 +372,24 @@ const projects = [
       "Responsive web chat app built to explore Firebase auth, realtime database, and clean component structure.",
     descZh:
       "為了探索 Firebase 登入、即時資料庫與乾淨元件結構而打造的響應式聊天網站。",
+    problemEn: [
+      "I wanted a small but realistic project to learn Firebase Authentication and Firestore realtime updates.",
+      "I also wanted to practise building a chat UI that works well on both mobile and desktop.",
+    ],
+    solutionEn: [
+      "Implemented Google login with Firebase Auth and stored user profiles in Firestore.",
+      "Built a simple chat room interface with realtime message updates and read-style timestamps.",
+      "Kept the component structure clean and reusable so the same patterns can be used in future apps.",
+    ],
+    impactEn: [
+      "Gave me confidence working with Firebase as a backend-as-a-service option for small projects.",
+      "Improved my ability to design responsive layouts that still feel good for chat-style interactions.",
+    ],
     liveUrl: "https://ricky-chat-app.vercel.app/",
     codeUrl: null,
     gallery: ["/projects/chat-app/chat.png", "/projects/chat-app/mobile.png"],
   },
+
   {
     id: "portfolios",
     kind: "personal",
@@ -213,6 +405,18 @@ const projects = [
       "Multiple iterations of my portfolio sites focusing on responsive layout, Joy UI / MUI, and now a bilingual Next.js + Tailwind + shadcn setup.",
     descZh:
       "多次重構的個人作品集網站，從 MUI / Joy UI 到現行的 Next.js + Tailwind + shadcn 雙語版本。",
+    problemEn: [
+      "I needed a place to explain my projects clearly and keep examples up to date as my stack evolved.",
+      "Earlier versions of my portfolio were either single-language or didn’t reflect my newer work.",
+    ],
+    solutionEn: [
+      "Built several iterations (3.0, 4.0, now 5.0) using different UI libraries to experiment with design systems.",
+      "Introduced bilingual EN/中文 content, better project structure, and more realistic case-study-style pages.",
+    ],
+    impactEn: [
+      "Gave me a living playground for trying new UI frameworks and patterns.",
+      "Helps recruiters and hiring managers quickly understand not just screenshots, but the context behind each project.",
+    ],
     liveUrl: null,
     codeUrl: null,
     gallery: [
@@ -220,28 +424,7 @@ const projects = [
       "/projects/portfolio/projects.png",
     ],
   },
-  {
-    id: "visa-portal",
-    kind: "personal",
-    icon: Globe2,
-    slug: "Visa Portal – Visa to China",
-    slugZh: "中國簽證申請入口網站",
-    period: "Side project",
-    role: "Full-stack developer",
-    roleZh: "全端開發",
-    stack: "Next.js, forms, content pages",
-    tags: ["Portal", "Content"],
-    descEn:
-      "An informational and lead-capture site for people applying for visas to China, with structured steps and bilingual content planned.",
-    descZh:
-      "協助申請中國簽證的資訊與表單網站，規劃清楚流程與後續的中英文內容。",
-    liveUrl: "https://visatochina.com.au/",
-    codeUrl: null,
-    gallery: [
-      "/projects/visa-portal/home.png",
-      "/projects/visa-portal/steps.png",
-    ],
-  },
+
   {
     id: "customer-display",
     kind: "internal",
@@ -257,6 +440,18 @@ const projects = [
       "A secondary customer-facing screen that mirrors basket contents, promos, and QR flows alongside the main POS terminal.",
     descZh:
       "在主要 POS 終端旁的客戶顯示螢幕，即時顯示購物籃內容、優惠與 QR 流程。",
+    problemEn: [
+      "Stores wanted a more modern customer-facing experience than just a small VFD or printed receipts.",
+      "Customers couldn’t easily see their current basket or promotions while the cashier was keying items.",
+    ],
+    solutionEn: [
+      "Built a WPF desktop application that runs on a secondary screen and syncs live with the main POS basket.",
+      "Designed layouts that show current items, totals, promos, and QR flows without distracting the cashier.",
+    ],
+    impactEn: [
+      "Improved transparency for customers by showing them exactly what’s being added to the basket in real time.",
+      "Gave stores a more modern, branded look at the counter without changing their core POS workflow.",
+    ],
     liveUrl: null,
     codeUrl: null,
     gallery: [
@@ -295,7 +490,11 @@ function ProjectCard({ project, lang, t, onOpenDemo }) {
   const desc = isZh ? project.descZh : project.descEn;
 
   const kindLabel =
-    project.kind === "internal" ? t.internalLabel : t.personalLabel;
+    project.kind === "internal"
+      ? t.internalLabel
+      : project.kind === "business"
+      ? t.businessLabel
+      : t.personalLabel;
 
   const hasPublicDemo = Boolean(project.liveUrl);
   const hasCode = Boolean(project.codeUrl);
@@ -342,7 +541,6 @@ function ProjectCard({ project, lang, t, onOpenDemo }) {
       </div>
 
       <div className="mt-4 flex flex-wrap gap-2">
-        {/* Always show a Demo button – either link or modal */}
         {hasPublicDemo ? (
           <Button asChild size="sm">
             <Link href={project.liveUrl} target="_blank">
@@ -412,9 +610,14 @@ function DemoModal({ project, lang, t, onClose }) {
   const desc = isZh ? project.descZh : project.descEn;
   const gallery = project.gallery || [];
 
+  const problem = isZh ? project.problemZh : project.problemEn;
+  const solution = isZh ? project.solutionZh : project.solutionEn;
+  const impact = isZh ? project.impactZh : project.impactEn;
+
   return (
     <Dialog open={open} onOpenChange={(v) => !v && onClose()}>
-      <DialogContent className="max-w-3xl">
+      {/* max-h + flex so the middle area can scroll */}
+      <DialogContent className="max-w-3xl max-h-[85vh] flex flex-col">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>
@@ -426,9 +629,58 @@ function DemoModal({ project, lang, t, onClose }) {
           </DialogDescription>
         </DialogHeader>
 
-        <div className="space-y-4 mt-2">
+        {/* scrollable content */}
+        <div className="space-y-4 mt-2 overflow-y-auto pr-1">
+          {/* short description */}
           <p className="text-sm">{desc}</p>
 
+          {/* tech stack recap */}
+          {project.stack ? (
+            <p className="text-xs md:text-sm text-muted-foreground">
+              <span className="font-medium">{t.stackLabel}:</span>{" "}
+              {project.stack}
+            </p>
+          ) : null}
+
+          {/* structured bullets */}
+          {(problem || solution || impact) && (
+            <div className="mt-2 space-y-4 text-sm">
+              {problem?.length ? (
+                <div>
+                  <p className="font-semibold">{t.problemTitle}</p>
+                  <ul className="mt-1 list-disc list-inside space-y-1 text-muted-foreground">
+                    {problem.map((line, idx) => (
+                      <li key={`p-${idx}`}>{line}</li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+
+              {solution?.length ? (
+                <div>
+                  <p className="font-semibold">{t.solutionTitle}</p>
+                  <ul className="mt-1 list-disc list-inside space-y-1 text-muted-foreground">
+                    {solution.map((line, idx) => (
+                      <li key={`s-${idx}`}>{line}</li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+
+              {impact?.length ? (
+                <div>
+                  <p className="font-semibold">{t.impactTitle}</p>
+                  <ul className="mt-1 list-disc list-inside space-y-1 text-muted-foreground">
+                    {impact.map((line, idx) => (
+                      <li key={`i-${idx}`}>{line}</li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+            </div>
+          )}
+
+          {/* screenshots */}
           {gallery.length > 0 && (
             <div>
               <p className="text-xs font-semibold mb-2 uppercase tracking-wide text-muted-foreground">
@@ -440,7 +692,6 @@ function DemoModal({ project, lang, t, onClose }) {
                     key={`${project.id}-shot-${idx}`}
                     className="overflow-hidden rounded-md border bg-card"
                   >
-                    {/* replace with <Image> later if you prefer */}
                     <img
                       src={src}
                       alt={`${title} screenshot ${idx + 1}`}
@@ -453,7 +704,8 @@ function DemoModal({ project, lang, t, onClose }) {
           )}
         </div>
 
-        <div className="mt-4 flex justify-end">
+        {/* sticky-ish footer inside dialog */}
+        <div className="mt-4 pt-2 flex justify-end border-t">
           <Button variant="outline" size="sm" onClick={onClose}>
             {t.close}
           </Button>
@@ -472,7 +724,6 @@ export default function ProjectsPage() {
   const [activeTag, setActiveTag] = useState("ALL");
   const [demoProject, setDemoProject] = useState(null);
 
-  // collect unique tags
   const allTags = useMemo(() => {
     const set = new Set();
     projects.forEach((p) => (p.tags || []).forEach((tag) => set.add(tag)));

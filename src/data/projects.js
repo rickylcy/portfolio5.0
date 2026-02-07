@@ -1,6 +1,25 @@
 // src/data/projects.js
 export const projects = [
   {
+    id: "noodles-broadbeach",
+    title: "Noodle Broadbeach – Reporting & Rostering",
+    blurb:
+      "Internal web app for a multi-store restaurant group: daily sales reports, analytics, and a rostering system with staff availability, holidays, and bonus days.",
+    tags: ["Web", "Next.js", "MongoDB", "Reporting", "Rostering", "Internal"],
+    tech: [
+      "Next.js",
+      "React",
+      "Tailwind",
+      "NextAuth",
+      "MongoDB Atlas",
+      "REST API",
+    ],
+    status: "Internal",
+    demoUrl: null, // no public demo – keeps Demo button hidden
+    caseUrl: "/projects/noodles-broadbeach", // you can create this later
+    image: "/projects/noodles-broadbeach.png", // put a screenshot/placeholder here
+  },
+  {
     id: "mobile-ordering",
     title: "POS / Mobile Ordering",
     blurb:
