@@ -2,6 +2,8 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
 
 export default function ResumePreviewCard({ lang }) {
   const isZh = lang === "zh";
@@ -24,29 +26,25 @@ export default function ResumePreviewCard({ lang }) {
   const pdfHref = `/api/resume?lang=${lang}`;
 
   return (
-    <section className="mt-16">
-      <div className="flex items-center gap-6 rounded-2xl border bg-card text-card-foreground p-6 shadow-sm">
-        <img
+    <section className="w-full max-w-3xl mx-auto">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 sm:gap-6 rounded-2xl border bg-card text-card-foreground p-4 sm:p-6 shadow-sm">
+        <Image
           src="/resume-thumb.png"
           alt="Resume preview"
-          className="hidden h-52 w-40 shrink-0 rounded-lg object-cover shadow sm:block"
+          width={320}
+          height={416}
+          className="hidden h-44 md:h-52 w-32 md:w-40 shrink-0 rounded-lg object-cover shadow sm:block"
         />
         <div className="flex-1">
-          <h2 className="text-xl font-semibold">{labels.title}</h2>
+          <h2 className="text-lg sm:text-xl font-semibold">{labels.title}</h2>
           <p className="mt-1 text-sm text-muted-foreground">{labels.blurb}</p>
-          <div className="mt-4 flex gap-3">
-            <Link
-              href="/resume"
-              className="inline-flex h-10 items-center rounded-lg border px-4 hover:bg-muted"
-            >
-              {labels.view}
-            </Link>
-            <a
-              href={pdfHref}
-              className="inline-flex h-10 items-center rounded-lg border px-4 hover:bg-muted"
-            >
-              {labels.download}
-            </a>
+          <div className="mt-4 flex flex-col sm:flex-row flex-wrap gap-3">
+            <Button asChild className="w-full sm:w-auto">
+              <Link href="/resume">{labels.view}</Link>
+            </Button>
+            <Button asChild variant="outline" className="w-full sm:w-auto">
+              <a href={pdfHref}>{labels.download}</a>
+            </Button>
           </div>
         </div>
       </div>

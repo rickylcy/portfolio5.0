@@ -2,6 +2,7 @@
 "use client";
 
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export default function ResumeActions({
   pdfHref,
@@ -11,19 +12,16 @@ export default function ResumeActions({
   backText,
 }) {
   return (
-    <div className="mt-4 flex gap-3 print:hidden">
-      <a href={pdfHref} className="px-4 py-2 border rounded-lg hover:bg-muted">
-        {downloadText}
-      </a>
-      <button
-        onClick={() => window.print()}
-        className="px-4 py-2 border rounded-lg hover:bg-muted"
-      >
+    <div className="mt-4 flex flex-wrap items-center gap-3 print:hidden">
+      <Button asChild variant="outline">
+        <a href={pdfHref}>{downloadText}</a>
+      </Button>
+      <Button variant="outline" onClick={() => window.print()}>
         {printText}
-      </button>
-      <Link href={backHref} className="ml-auto text-sm underline">
-        {backText}
-      </Link>
+      </Button>
+      <Button asChild variant="ghost" className="ml-0 sm:ml-auto">
+        <Link href={backHref}>{backText}</Link>
+      </Button>
     </div>
   );
 }

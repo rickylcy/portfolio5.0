@@ -8,7 +8,7 @@ const en = {
   },
   summaryLabel: "Summary",
   summary:
-    "Full-stack developer focused on Next.js + Tailwind, with real-world experience in POS/ordering systems. I value clean UI, fast UX, and shipping pragmatic solutions.",
+    "Full-stack developer with hands-on experience building POS and ordering products. I focus on reliable delivery, clear user interfaces, and maintainable code.",
   sections: [
     {
       heading: "Experience",
@@ -17,19 +17,19 @@ const en = {
           title: "POS Republic — Software Developer",
           period: "Oct 2022 → Present",
           bullets: [
-            "Built Mobile Ordering and Customer Display (second screen) used in live stores.",
-            "Integrated kitchen printing/label printing; refined receipt formatting (ESC/POS).",
-            "Created Sales Report web app with responsive dashboards.",
-            "Integrated third-party APIs (Tyro, Linkly, Deliverect, etc.).",
+            "Built and shipped mobile ordering and customer display features used in live stores.",
+            "Integrated kitchen and label printing workflows, including receipt formatting (ESC/POS).",
+            "Developed responsive sales reporting dashboards for store operators.",
+            "Integrated third-party services including Tyro, Linkly, and Deliverect.",
           ],
         },
         {
           title: "Leap In! — Software Developer Intern",
           period: "Jun 2020 → Jun 2021",
           bullets: [
-            "Implemented feedback mechanism for NDIS providers.",
-            "Designed REST APIs to store and fetch feedback data.",
-            "Built and maintained a structured database schema.",
+            "Implemented a feedback workflow for NDIS providers.",
+            "Designed REST APIs for storing and retrieving feedback data.",
+            "Maintained structured database schemas and data integrity.",
           ],
         },
       ],
@@ -39,30 +39,30 @@ const en = {
       items: [
         {
           title: "Visa Portal (Visa to China)",
-          bullets: ["Real client site for China visas (Brisbane)."],
+          bullets: ["Client website for a Brisbane visa service business."],
         },
         {
           title: "Amherst Platform (Sushi)",
           bullets: [
-            "Ordering portal with auth, checkout, admin connected to POS.",
+            "School ordering portal with authentication, checkout, admin tools, and POS integration.",
           ],
         },
         {
           title: "Plan-Craft & PrintCraft Studio",
           bullets: [
-            "Scheduling tool and label/printing studio exploring multi-tenant, drag-and-drop workflows, and ZPL/ESC/POS output.",
+            "R&D projects for scheduling workflows and label-printing systems (ZPL/ESC/POS).",
           ],
         },
         {
           title: "Portfolio v2.0 → v5.0",
           bullets: [
-            "Personal portfolio; i18n, resume preview, MDX content, and responsive UI.",
+            "Personal portfolio with bilingual support, resume preview, and responsive UI.",
           ],
         },
         {
           title: "Good-forum",
           bullets: [
-            "Forum prototype (LIHKG-style) derived from AnyPortal; Next.js + MongoDB.",
+            "Forum prototype built with Next.js and MongoDB.",
           ],
         },
       ],
@@ -73,13 +73,13 @@ const en = {
         {
           title: "Core",
           bullets: [
-            "Next.js, React, Tailwind, shadcn/ui, Zustand, Node.js/Express, REST API, SQL, Firebase",
+            "Next.js, React, Tailwind, shadcn/ui, Zustand, Node.js/Express, REST APIs, SQL, Firebase",
           ],
         },
         {
           title: "Also",
           bullets: [
-            "React Native, WebUSB / ESC/POS / ZPL printing, MongoDB, Email (Nodemailer / Resend / EmailJS), charting, POS integrations",
+            "React Native, WebUSB, ESC/POS and ZPL printing, MongoDB, email integrations, charting, POS integrations",
           ],
         },
       ],

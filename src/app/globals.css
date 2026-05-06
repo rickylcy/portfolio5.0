@@ -10,6 +10,8 @@
    Theme tokens (OKLCH)
 ----------------------------------*/
 :root {
+  --nav-offset: 5rem;
+  --dot-color: rgba(99, 102, 241, 0.12);
   --primary: oklch(0.205 0 0);
   --primary-foreground: oklch(0.985 0 0);
 
@@ -56,6 +58,7 @@
 }
 
 .dark {
+  --dot-color: rgba(148, 163, 184, 0.2);
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
 
@@ -160,6 +163,11 @@
   }
   body {
     @apply bg-background text-foreground;
+    background-color: var(--background);
+  }
+  html {
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
   }
 }
 
@@ -179,6 +187,40 @@ html.hc {
   --background: oklch(1 0 0);
   --foreground: oklch(0.09 0 0);
   --border: oklch(0.88 0 0);
+}
+
+/* Strengthen contrast for utility-heavy custom classes */
+html.hc body {
+  background: #ffffff !important;
+  color: #111827 !important;
+}
+
+html.hc [class*="text-slate-"],
+html.hc [class*="text-violet-"] {
+  color: #111827 !important;
+}
+
+html.hc [class*="bg-violet-950"],
+html.hc [class*="bg-violet-900"] {
+  background-color: #111827 !important;
+  color: #ffffff !important;
+}
+
+html.hc [class*="bg-violet-"],
+html.hc [class*="bg-slate-100"] {
+  background-color: #ffffff !important;
+}
+
+html.hc [class*="border-violet-"],
+html.hc [class*="border-slate-"],
+html.hc [class*="border-white"] {
+  border-color: #111827 !important;
+}
+
+html.hc input,
+html.hc textarea,
+html.hc button {
+  border-color: #111827 !important;
 }
 
 html.reduce-motion *,

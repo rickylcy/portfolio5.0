@@ -3,6 +3,7 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -12,7 +13,7 @@ import {
   MonitorSmartphone,
   Workflow,
   Globe2,
-  Sparkles,
+  SlidersHorizontal,
 } from "lucide-react";
 import {
   Dialog,
@@ -27,49 +28,55 @@ import {
 const pageCopy = {
   en: {
     eyebrow: "Selected work",
-    title: "Projects I’m proud of",
+    title: "Projects",
     subtitle:
-      "A mix of production systems and personal tools that show how I think about UX, data, and reliability.",
+      "A focused selection of client work, internal systems, and personal builds.",
     projectLabel: "Project",
     roleLabel: "Role",
     stackLabel: "Tech stack",
     internalLabel: "Internal",
     businessLabel: "Business / Client",
     personalLabel: "Personal",
-    viewApp: "Open demo",
+    viewApp: "Visit site",
     viewCode: "View code",
-    demo: "Demo",
+    demo: "View details",
     screenshots: "Screenshots",
     close: "Close",
-    noPublicDemo:
-      "This is a production, internal, or client system, so there’s no public demo link. Here’s a quick overview and some screenshots instead.",
-    filterAll: "All",
+    overviewIntro: "Project overview and screenshots.",
+    noPublicDemo: "No public demo is available for this project.",
+    filterTitle: "Filter by",
+    filterAll: "All projects",
     problemTitle: "Why this project",
     solutionTitle: "What I built",
     impactTitle: "Impact",
+    showing: "Showing",
+    of: "of",
   },
   zh: {
     eyebrow: "精選作品",
-    title: "讓我覺得值得分享的專案",
+    title: "專案",
     subtitle:
-      "包含正式上線系統與個人工具，反映我對 UX、資料結構與穩定度的思考方式。",
+      "精選商業專案、內部系統與個人作品，呈現我在 UX 與工程落地上的做法。",
     projectLabel: "專案",
     roleLabel: "角色",
     stackLabel: "技術堆疊",
     internalLabel: "內部專案",
     businessLabel: "商業專案",
     personalLabel: "個人專案",
-    viewApp: "開啟 Demo",
+    viewApp: "前往網站",
     viewCode: "檢視程式碼",
-    demo: "Demo",
+    demo: "查看內容",
     screenshots: "截圖瀏覽",
     close: "關閉",
-    noPublicDemo:
-      "此為正式、內部或商業系統，目前沒有對外公開 Demo，以下是簡介與部分畫面截圖。",
-    filterAll: "全部",
+    overviewIntro: "專案概要與畫面截圖。",
+    noPublicDemo: "此專案目前沒有對外公開 Demo。",
+    filterTitle: "篩選方式",
+    filterAll: "全部專案",
     problemTitle: "為什麼需要這個系統",
     solutionTitle: "我負責的內容",
     impactTitle: "帶來的改變",
+    showing: "顯示",
+    of: "共",
   },
 };
 
@@ -498,6 +505,7 @@ function ProjectCard({ project, lang, t, onOpenDemo }) {
 
   const hasPublicDemo = Boolean(project.liveUrl);
   const hasCode = Boolean(project.codeUrl);
+  const displayTags = (project.tags || []).slice(0, 3);
 
   return (
     <Card className="flex flex-col justify-between p-5 hover:shadow-md transition-shadow">
@@ -525,13 +533,13 @@ function ProjectCard({ project, lang, t, onOpenDemo }) {
           </div>
         </div>
 
-        {project.tags?.length ? (
+        {displayTags.length ? (
           <div className="mt-2 flex flex-wrap gap-1">
-            {project.tags.map((tag) => (
+            {displayTags.map((tag) => (
               <Badge
                 key={`${project.id}-${tag}`}
                 variant="secondary"
-                className="text-[10px]"
+                className="text-[11px]"
               >
                 {tag}
               </Badge>
@@ -542,19 +550,24 @@ function ProjectCard({ project, lang, t, onOpenDemo }) {
 
       <div className="mt-4 flex flex-wrap gap-2">
         {hasPublicDemo ? (
-          <Button asChild size="sm">
+          <Button asChild size="sm" className="w-full sm:w-auto">
             <Link href={project.liveUrl} target="_blank">
               {t.viewApp}
             </Link>
           </Button>
-        ) : (
-          <Button size="sm" onClick={() => onOpenDemo(project)}>
-            {t.demo}
-          </Button>
-        )}
+        ) : null}
+
+        <Button
+          size="sm"
+          className="w-full sm:w-auto"
+          variant={hasPublicDemo ? "outline" : "default"}
+          onClick={() => onOpenDemo(project)}
+        >
+          {t.demo}
+        </Button>
 
         {hasCode ? (
-          <Button asChild size="sm" variant="outline">
+          <Button asChild size="sm" variant="ghost">
             <Link href={project.codeUrl} target="_blank">
               {t.viewCode}
             </Link>
@@ -567,32 +580,32 @@ function ProjectCard({ project, lang, t, onOpenDemo }) {
 
 /* ---------------- filter bar ---------------- */
 
-function TagFilter({ tags, activeTag, onChange, t }) {
+function CategoryFilter({ categories, activeCategory, onChange, t }) {
   return (
     <div className="mt-8 flex flex-wrap gap-2 items-center">
       <span className="text-xs text-muted-foreground flex items-center gap-1">
-        <Sparkles className="h-3 w-3" />
-        {t.eyebrow}
+        <SlidersHorizontal className="h-3 w-3" />
+        {t.filterTitle}
       </span>
       <Button
         type="button"
         size="sm"
-        variant={activeTag === "ALL" ? "default" : "outline"}
+        variant={activeCategory === "ALL" ? "default" : "outline"}
         onClick={() => onChange("ALL")}
-        className="h-7 px-3 text-xs"
+        className="h-8 px-3 text-xs"
       >
         {t.filterAll}
       </Button>
-      {tags.map((tag) => (
+      {categories.map((category) => (
         <Button
-          key={tag}
+          key={category.value}
           type="button"
           size="sm"
-          variant={activeTag === tag ? "default" : "outline"}
-          onClick={() => onChange(tag)}
-          className="h-7 px-3 text-xs"
+          variant={activeCategory === category.value ? "default" : "outline"}
+          onClick={() => onChange(category.value)}
+          className="h-8 px-3 text-xs"
         >
-          {tag}
+          {category.label}
         </Button>
       ))}
     </div>
@@ -613,6 +626,7 @@ function DemoModal({ project, lang, t, onClose }) {
   const problem = isZh ? project.problemZh : project.problemEn;
   const solution = isZh ? project.solutionZh : project.solutionEn;
   const impact = isZh ? project.impactZh : project.impactEn;
+  const hasPublicDemo = Boolean(project.liveUrl);
 
   return (
     <Dialog open={open} onOpenChange={(v) => !v && onClose()}>
@@ -621,8 +635,12 @@ function DemoModal({ project, lang, t, onClose }) {
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>
-            {t.noPublicDemo}
+            {t.overviewIntro}
             <br />
+            {!hasPublicDemo ? (
+              <span className="text-xs text-muted-foreground">{t.noPublicDemo}</span>
+            ) : null}
+            {!hasPublicDemo ? <br /> : null}
             <span className="text-xs text-muted-foreground">
               {project.period}
             </span>
@@ -690,12 +708,14 @@ function DemoModal({ project, lang, t, onClose }) {
                 {gallery.map((src, idx) => (
                   <div
                     key={`${project.id}-shot-${idx}`}
-                    className="overflow-hidden rounded-md border bg-card"
+                    className="relative overflow-hidden rounded-md border bg-card min-h-44"
                   >
-                    <img
+                    <Image
                       src={src}
                       alt={`${title} screenshot ${idx + 1}`}
-                      className="w-full h-full object-cover"
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-cover"
                     />
                   </div>
                 ))}
@@ -721,28 +741,31 @@ export default function ProjectsPage() {
   const { lang } = useLang();
   const t = pageCopy[lang] || pageCopy.en;
 
-  const [activeTag, setActiveTag] = useState("ALL");
+  const [activeCategory, setActiveCategory] = useState("ALL");
   const [demoProject, setDemoProject] = useState(null);
 
-  const allTags = useMemo(() => {
-    const set = new Set();
-    projects.forEach((p) => (p.tags || []).forEach((tag) => set.add(tag)));
-    return Array.from(set).sort();
-  }, []);
+  const categories = useMemo(
+    () => [
+      { value: "business", label: t.businessLabel },
+      { value: "internal", label: t.internalLabel },
+      { value: "personal", label: t.personalLabel },
+    ],
+    [t.businessLabel, t.internalLabel, t.personalLabel]
+  );
 
   const filteredProjects =
-    activeTag === "ALL"
+    activeCategory === "ALL"
       ? projects
-      : projects.filter((p) => (p.tags || []).includes(activeTag));
+      : projects.filter((p) => p.kind === activeCategory);
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-12 md:py-16">
       <SectionTitle eyebrow={t.eyebrow} title={t.title} subtitle={t.subtitle} />
 
-      <TagFilter
-        tags={allTags}
-        activeTag={activeTag}
-        onChange={setActiveTag}
+      <CategoryFilter
+        categories={categories}
+        activeCategory={activeCategory}
+        onChange={setActiveCategory}
         t={t}
       />
 
@@ -757,6 +780,10 @@ export default function ProjectsPage() {
           />
         ))}
       </div>
+
+      <p className="mt-6 text-sm text-muted-foreground">
+        {t.showing} {filteredProjects.length} {t.of} {projects.length}
+      </p>
 
       <DemoModal
         project={demoProject}

@@ -4,13 +4,12 @@ import { createContext, useContext, useEffect, useState } from "react";
 const LangContext = createContext({ lang: "en", setLang: () => {} });
 
 export function LangProvider({ children }) {
-  const [lang, setLang] = useState("en");
+  const [lang, setLang] = useState(() => {
+    if (typeof window === "undefined") return "en";
+    const saved = localStorage.getItem("lang");
+    return saved === "en" || saved === "zh" ? saved : "en";
+  });
 
-  useEffect(() => {
-    const saved =
-      typeof window !== "undefined" ? localStorage.getItem("lang") : null;
-    if (saved === "en" || saved === "zh") setLang(saved);
-  }, []);
   useEffect(() => {
     if (typeof window !== "undefined") localStorage.setItem("lang", lang);
     // reflect as attribute for CSS hooks if needed
