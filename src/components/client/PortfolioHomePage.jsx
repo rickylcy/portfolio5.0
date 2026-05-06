@@ -85,8 +85,10 @@ const homeCopy = {
       {
         id: "noodles-broadbeach",
         icon: Layers,
-        kind: "Business / Internal",
+        kind: "Business / Client",
         title: "Noodle Broadbeach System",
+        company: "Noodle Broadbeach",
+        location: "Broadbeach, Queensland",
         summary:
           "Unified reporting, accounting, and rostering platform for a multi-store restaurant group.",
         points: [
@@ -101,6 +103,7 @@ const homeCopy = {
         icon: Globe,
         kind: "Business / Client",
         title: "Visa Portal",
+        company: "Visa To China",
         summary:
           "Public-facing website that helps customers understand visa steps and submit enquiries.",
         points: [
@@ -209,8 +212,10 @@ const homeCopy = {
       {
         id: "noodles-broadbeach",
         icon: Layers,
-        kind: "商業 / 內部",
+        kind: "商業 / 客戶",
         title: "Noodle Broadbeach 系統",
+        company: "Noodle Broadbeach",
+        location: "昆士蘭 Broadbeach",
         summary: "整合營業報表、會計與排班的多店管理平台。",
         points: [
           "取代原本試算表與聊天工具流程",
@@ -224,6 +229,7 @@ const homeCopy = {
         icon: Globe,
         kind: "商業 / 客戶",
         title: "Visa Portal",
+        company: "Visa To China",
         summary: "協助客戶理解簽證流程並留下詢問資料的對外網站。",
         points: [
           "流程導向的清晰資訊架構",
@@ -486,6 +492,11 @@ function ProjectCard({ project, t, onNextProject }) {
       <h3 className="mt-3 sm:mt-4 text-[1.25rem] sm:text-2xl font-semibold text-slate-900 dark:text-slate-100">
         {project.title}
       </h3>
+      {project.company || project.location ? (
+        <p className="mt-1 text-[0.78rem] sm:text-sm font-medium text-violet-800 dark:text-violet-300">
+          {[project.company, project.location].filter(Boolean).join(" · ")}
+        </p>
+      ) : null}
       <p className="mt-2 sm:mt-3 text-[0.92rem] sm:text-base text-slate-600 dark:text-slate-300">
         {project.summary}
       </p>
@@ -584,12 +595,14 @@ function FeaturedProjectsSection({ t }) {
 
   function prev() {
     if (items.length < 2) return;
+    if (trackIndex <= 0 || trackIndex >= items.length + 1) return;
     setIndex((v) => (v - 1 + items.length) % items.length);
     setTrackIndex((v) => v - 1);
   }
 
   function next() {
     if (items.length < 2) return;
+    if (trackIndex <= 0 || trackIndex >= items.length + 1) return;
     setIndex((v) => (v + 1) % items.length);
     setTrackIndex((v) => v + 1);
   }
@@ -631,7 +644,16 @@ function FeaturedProjectsSection({ t }) {
   }, []);
 
   useEffect(() => {
-    if (isPaused || reduceMotionEnabled || items.length < 2) return;
+    if (
+      isPaused ||
+      isJumping ||
+      reduceMotionEnabled ||
+      items.length < 2 ||
+      trackIndex <= 0 ||
+      trackIndex >= items.length + 1
+    ) {
+      return;
+    }
 
     if (
       typeof window !== "undefined" &&
@@ -647,7 +669,38 @@ function FeaturedProjectsSection({ t }) {
     }, 5000);
 
     return () => clearInterval(timer);
-  }, [isPaused, reduceMotionEnabled, items.length]);
+  }, [isPaused, isJumping, reduceMotionEnabled, items.length, trackIndex]);
+
+  useEffect(() => {
+    if (items.length < 2) return;
+
+    if (trackIndex < 0 || trackIndex > items.length + 1) {
+      const resetTimer = window.setTimeout(() => {
+        const safeIndex = ((index % items.length) + items.length) % items.length;
+        setIsJumping(true);
+        setIndex(safeIndex);
+        setTrackIndex(safeIndex + 1);
+      }, 0);
+
+      return () => window.clearTimeout(resetTimer);
+    }
+
+    if (trackIndex !== 0 && trackIndex !== items.length + 1) return;
+
+    const resetTimer = window.setTimeout(() => {
+      setIsJumping(true);
+      if (trackIndex === 0) {
+        setIndex(items.length - 1);
+        setTrackIndex(items.length);
+        return;
+      }
+
+      setIndex(0);
+      setTrackIndex(1);
+    }, 800);
+
+    return () => window.clearTimeout(resetTimer);
+  }, [index, items.length, trackIndex]);
 
   useEffect(() => {
     if (!isJumping) return;
