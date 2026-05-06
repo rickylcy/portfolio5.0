@@ -27,7 +27,7 @@ export default function ResumePage() {
   const pdfHref = `/api/resume?lang=${lang}`;
 
   return (
-    <main className="container mx-auto p-6 print:p-0">
+    <main className="container mx-auto px-6 pb-6 pt-[calc(var(--nav-offset)+1.5rem)] print:p-0">
       <div className="mx-auto max-w-3xl bg-card text-card-foreground shadow rounded-2xl p-6 print:shadow-none print:rounded-none">
         <Resume data={data} />
       </div>

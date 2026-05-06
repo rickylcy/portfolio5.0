@@ -15,7 +15,7 @@ export async function GET(request) {
   return new NextResponse(stream, {
     headers: {
       "Content-Type": "application/pdf",
-      "Content-Disposition": `inline; filename="Ricky_Lau_Resume_${lang}.pdf"`,
+      "Content-Disposition": `attachment; filename="Ricky_Lau_Resume_${lang}.pdf"`,
     },
   });
 }

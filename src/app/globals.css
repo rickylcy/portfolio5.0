@@ -223,6 +223,183 @@ html.hc button {
   border-color: #111827 !important;
 }
 
+.portfolio-dot-field {
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    var(--dot-color) 1px,
+    transparent 0
+  );
+  background-size: 18px 18px;
+  animation: portfolio-dot-drift 22s linear infinite;
+  will-change: background-position;
+}
+
+.portfolio-glow-orb {
+  pointer-events: none;
+  position: absolute;
+  width: clamp(10rem, 28vw, 26rem);
+  height: clamp(10rem, 28vw, 26rem);
+  border-radius: 9999px;
+  opacity: 0.28;
+  filter: blur(42px);
+  transform: translate3d(0, 0, 0);
+  animation: portfolio-glow-float 12s ease-in-out infinite;
+}
+
+.portfolio-glow-orb-one {
+  left: -8%;
+  top: 18%;
+  background: rgba(109, 40, 217, 0.18);
+}
+
+.portfolio-glow-orb-two {
+  right: -10%;
+  bottom: 8%;
+  background: rgba(59, 130, 246, 0.12);
+  animation-delay: -5s;
+}
+
+.portfolio-section-reveal {
+  animation: portfolio-section-rise both;
+  animation-timeline: view(block);
+  animation-range: entry 10% cover 34%;
+}
+
+.portfolio-card-motion {
+  transition:
+    transform 260ms ease,
+    box-shadow 260ms ease,
+    border-color 260ms ease;
+  will-change: transform;
+}
+
+.portfolio-card-motion:hover {
+  transform: translateY(-4px);
+  border-color: rgba(124, 58, 237, 0.35);
+  box-shadow: 0 22px 48px -32px rgba(49, 46, 129, 0.55);
+}
+
+.dark .portfolio-card-motion:hover {
+  box-shadow: 0 22px 48px -32px rgba(0, 0, 0, 0.9);
+}
+
+.portfolio-float-gentle {
+  animation: portfolio-float-gentle 7s ease-in-out infinite;
+}
+
+.portfolio-float-slow {
+  animation: portfolio-float-slow 9s ease-in-out infinite;
+}
+
+.portfolio-preview-screen {
+  overflow: hidden;
+}
+
+.portfolio-preview-screen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 0%,
+    transparent 38%,
+    rgba(255, 255, 255, 0.35) 48%,
+    transparent 58%,
+    transparent 100%
+  );
+  transform: translateX(-130%);
+  animation: portfolio-screen-sheen 5.8s ease-in-out infinite;
+}
+
+.dark .portfolio-preview-screen::after {
+  background: linear-gradient(
+    110deg,
+    transparent 0%,
+    transparent 38%,
+    rgba(255, 255, 255, 0.12) 48%,
+    transparent 58%,
+    transparent 100%
+  );
+}
+
+.portfolio-icon-pulse {
+  animation: portfolio-icon-pulse 3.6s ease-in-out infinite;
+}
+
+.portfolio-dot-button:hover {
+  transform: translateY(-1px) scale(1.08);
+}
+
+@keyframes portfolio-dot-drift {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 36px 54px;
+  }
+}
+
+@keyframes portfolio-glow-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(1.5rem, -1rem, 0) scale(1.08);
+  }
+}
+
+@keyframes portfolio-section-rise {
+  from {
+    opacity: 0.35;
+    transform: translateY(1.25rem) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes portfolio-float-gentle {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-0.45rem);
+  }
+}
+
+@keyframes portfolio-float-slow {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0.35rem, -0.5rem, 0);
+  }
+}
+
+@keyframes portfolio-screen-sheen {
+  0%,
+  55% {
+    transform: translateX(-130%);
+  }
+  100% {
+    transform: translateX(130%);
+  }
+}
+
+@keyframes portfolio-icon-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+}
+
 html.reduce-motion *,
 html.reduce-motion *::before,
 html.reduce-motion *::after {

@@ -8,15 +8,18 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import {
+  CheckCircle2,
   ChevronLeft,
   ChevronRight,
   Code2,
   Globe,
   Layers,
   Mail,
+  MapPin,
   MonitorSmartphone,
   Linkedin as LinkedinIcon,
   MoveRight,
+  Send,
 } from "lucide-react";
 import emailjs from "@emailjs/browser";
 import { useLang } from "@/lib/lang";
@@ -34,13 +37,21 @@ const homeCopy = {
     viewProjects: "View projects",
     contactCta: "Contact me",
     aboutEyebrow: "About",
-    aboutTitle: "Simple, reliable product delivery",
+    aboutTitle: "Product-minded, practical, and ready to contribute",
     aboutText:
-      "I work from problem to production: clear requirements, clean UI, stable data flow, and practical deployment.",
-    aboutHelpTitle: "How I can help you",
-    help1: "Responsive web apps with strong UX foundations",
-    help2: "Business workflows for reporting, ordering, and dashboards",
-    help3: "Integrations for APIs, payments, and printing devices",
+      "I am looking for developer opportunities where I can turn real business needs into simple, reliable web products. I enjoy working across UI, backend logic, data flow, and practical integrations.",
+    aboutHelpTitle: "What I bring to a team",
+    help1: "Full-stack development with Next.js, React, Node.js, APIs, and databases",
+    help2: "Care for responsive UI, accessibility, maintainable components, and clear user flows",
+    help3: "Hands-on experience with POS, ordering, reporting, dashboard, and integration workflows",
+    aboutSnapshotLabel: "Role snapshot",
+    aboutSnapshotTitle: "Full-stack developer",
+    aboutSnapshotText: "Brisbane based, bilingual, and open to remote-friendly teams.",
+    aboutSnapshotTags: ["React / Next.js", "APIs & data", "UX-minded UI", "Business systems"],
+    aboutSnapshotFocus: "Focus",
+    aboutSnapshotFocusText: "Build useful software that people can actually rely on.",
+    aboutSnapshotStyle: "Working style",
+    aboutSnapshotStyleText: "Clear, practical, calm under messy requirements.",
     projectsEyebrow: "Featured projects",
     projectsTitle: "Core work",
     projectsSubtitle:
@@ -50,12 +61,20 @@ const homeCopy = {
     viewSite: "Visit site",
     nextProject: "Next project",
     stackLabel: "Tech",
-    contactTitle: "Contact",
-    contactSubtitle: "Let's build something useful",
+    contactEyebrow: "Open to new opportunities",
+    contactTitle: "Let's talk about the right role",
+    contactSubtitle:
+      "I am open to developer roles where I can build practical, reliable products with a thoughtful team.",
     contactFormTitle: "Send a message",
     contactNamePlaceholder: "Your name",
     contactEmailPlaceholder: "Your email",
-    contactMessagePlaceholder: "Your message",
+    contactMessagePlaceholder: "Role, company, or quick introduction",
+    contactStatus: "Job opportunities",
+    contactStatusText: "Open to full-stack, frontend, and product-focused developer roles.",
+    contactLocation: "Brisbane based · open to remote work",
+    contactAvailability: "Full-time, contract, or hybrid opportunities",
+    contactDirect: "Direct contact",
+    contactLinkedInTitle: "Professional profile",
     sendEmail: "Send email",
     connectLinkedIn: "Open LinkedIn",
     contactButton: "Send message",
@@ -145,12 +164,21 @@ const homeCopy = {
     viewProjects: "查看專案",
     contactCta: "聯絡我",
     aboutEyebrow: "關於我",
-    aboutTitle: "簡潔、可靠的產品交付",
-    aboutText: "我從問題到上線完整負責：釐清需求、設計介面、穩定資料流程，再落地部署。",
-    aboutHelpTitle: "我可以協助你什麼",
-    help1: "具備良好體驗的響應式網站",
-    help2: "報表、點餐、儀表板等商業流程系統",
-    help3: "API、金流與列印設備整合",
+    aboutTitle: "重視產品實用性，也能穩定落地",
+    aboutText:
+      "我正在尋找開發職位，希望把真實的商業需求轉化成簡潔、可靠的網頁產品。我喜歡同時處理 UI、後端邏輯、資料流程與實用整合。",
+    aboutHelpTitle: "我能為團隊帶來什麼",
+    help1: "Next.js、React、Node.js、API 與資料庫的全端開發能力",
+    help2: "重視響應式 UI、無障礙、可維護元件與清晰使用流程",
+    help3: "具備 POS、點餐、報表、儀表板與系統整合的實作經驗",
+    aboutSnapshotLabel: "職位定位",
+    aboutSnapshotTitle: "全端工程師",
+    aboutSnapshotText: "位於布里斯本，具備中英雙語能力，也開放遠端合作團隊。",
+    aboutSnapshotTags: ["React / Next.js", "API 與資料", "重視 UX 的 UI", "商業系統"],
+    aboutSnapshotFocus: "專注方向",
+    aboutSnapshotFocusText: "打造真正實用、穩定且可被信任的軟體。",
+    aboutSnapshotStyle: "工作方式",
+    aboutSnapshotStyleText: "清楚、務實，能在不完整需求中穩定推進。",
     projectsEyebrow: "精選專案",
     projectsTitle: "核心作品",
     projectsSubtitle: "精選正式上線與商業專案，呈現我主要的產品與工程能力。",
@@ -159,12 +187,19 @@ const homeCopy = {
     viewSite: "前往網站",
     nextProject: "下一個專案",
     stackLabel: "技術",
-    contactTitle: "聯絡",
-    contactSubtitle: "一起做出真正有用的產品",
+    contactEyebrow: "開放新的工作機會",
+    contactTitle: "歡迎聊聊合適的職位",
+    contactSubtitle: "我正在尋找能與團隊一起打造實用、可靠產品的開發職位。",
     contactFormTitle: "傳送訊息",
     contactNamePlaceholder: "你的名字",
     contactEmailPlaceholder: "你的 Email",
-    contactMessagePlaceholder: "你的訊息",
+    contactMessagePlaceholder: "職位、公司，或簡短介紹",
+    contactStatus: "求職機會",
+    contactStatusText: "開放全端、前端，以及重視產品實用性的開發職位。",
+    contactLocation: "位於布里斯本 · 開放遠端工作",
+    contactAvailability: "全職、合約或混合辦公機會",
+    contactDirect: "直接聯絡",
+    contactLinkedInTitle: "專業資料",
     sendEmail: "寄送 Email",
     connectLinkedIn: "開啟 LinkedIn",
     contactButton: "送出訊息",
@@ -281,15 +316,12 @@ function DottedSurface({ children, className = "" }) {
     <div
       className={`relative overflow-hidden sm:rounded-3xl bg-gradient-to-br from-white to-violet-50/40 dark:from-slate-900 dark:to-slate-950 shadow-[0_20px_60px_-40px_rgba(31,38,135,0.35)] dark:shadow-[0_20px_60px_-40px_rgba(2,6,23,0.9)] ${className}`}
     >
-      <div
-        className="pointer-events-none absolute inset-0 opacity-60"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle at 1px 1px, var(--dot-color) 1px, transparent 0)",
-          backgroundSize: "18px 18px",
-        }}
-      />
-      <div className="relative mx-auto w-full max-w-6xl">{children}</div>
+      <div className="portfolio-dot-field pointer-events-none absolute inset-0 opacity-60" />
+      <div className="portfolio-glow-orb portfolio-glow-orb-one" />
+      <div className="portfolio-glow-orb portfolio-glow-orb-two" />
+      <div className="portfolio-section-reveal relative mx-auto w-full max-w-6xl">
+        {children}
+      </div>
     </div>
   );
 }
@@ -341,11 +373,11 @@ function Hero({ t }) {
           </div>
 
           <div className="hidden lg:block relative pt-2 sm:pt-4 lg:pt-0">
-            <div className="hidden lg:block absolute right-0 top-0 h-[84%] w-[88%] rounded-2xl bg-violet-950 dark:bg-violet-600/90" />
-            <div className="relative rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-xl p-2.5 sm:p-3 md:p-4">
+            <div className="portfolio-float-slow hidden lg:block absolute right-0 top-0 h-[84%] w-[88%] rounded-2xl bg-violet-950 dark:bg-violet-600/90" />
+            <div className="portfolio-card-motion portfolio-float-gentle relative rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-xl p-2.5 sm:p-3 md:p-4">
               <div className="relative aspect-[16/9] sm:aspect-[4/3] overflow-hidden rounded-xl bg-slate-100 dark:bg-slate-800">
                 <Image
-                  src="/resume-thumb.png"
+                  src="/ricky.jpg"
                   alt="Ricky Lau profile"
                   fill
                   className="object-cover object-top scale-105"
@@ -369,16 +401,48 @@ function AboutSection({ t }) {
       <DottedSurface className="px-4 pb-4 pt-[calc(var(--nav-offset)+1rem)] sm:px-7 sm:pb-7 sm:pt-[calc(var(--nav-offset)+1.75rem)] md:px-10 md:pb-10 lg:px-14 lg:pb-14 h-[100svh] flex items-center">
         <div className="grid lg:grid-cols-[0.95fr_1.05fr] gap-7 sm:gap-8 md:gap-10 items-center">
           <div className="hidden lg:block relative order-2 lg:order-1">
-            <div className="hidden sm:block absolute -left-2 bottom-0 h-[85%] w-[88%] rounded-2xl bg-violet-950 dark:bg-violet-600/90" />
-            <div className="relative rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-2.5 sm:p-3 shadow-lg">
-              <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-slate-100 dark:bg-slate-800">
-                <Image
-                  src="/resume-thumb.png"
-                  alt="About Ricky Lau"
-                  fill
-                  className="object-cover object-top scale-105"
-                  sizes="(max-width: 1024px) 100vw, 42vw"
-                />
+            <div className="portfolio-float-slow hidden sm:block absolute -left-2 bottom-0 h-[85%] w-[88%] rounded-2xl bg-violet-950 dark:bg-violet-600/90" />
+            <div className="portfolio-card-motion portfolio-float-gentle relative rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 shadow-lg">
+              <div className="rounded-2xl bg-gradient-to-br from-violet-50 to-white p-5 dark:from-slate-800 dark:to-slate-900">
+                <Badge className="rounded-full bg-violet-950 text-white hover:bg-violet-950 dark:bg-violet-500 dark:hover:bg-violet-500">
+                  {t.aboutSnapshotLabel}
+                </Badge>
+                <h3 className="mt-5 text-3xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">
+                  {t.aboutSnapshotTitle}
+                </h3>
+                <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">
+                  {t.aboutSnapshotText}
+                </p>
+
+                <div className="mt-6 grid grid-cols-2 gap-2">
+                  {t.aboutSnapshotTags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-xl border border-violet-100 bg-white/80 px-3 py-2 text-xs font-semibold text-violet-900 dark:border-slate-700 dark:bg-slate-950/60 dark:text-violet-200"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="mt-6 grid gap-3">
+                  <div className="rounded-2xl border border-violet-100 bg-white/90 p-4 dark:border-slate-700 dark:bg-slate-950/60">
+                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-violet-800 dark:text-violet-300">
+                      {t.aboutSnapshotFocus}
+                    </p>
+                    <p className="mt-2 text-sm leading-6 text-slate-700 dark:text-slate-200">
+                      {t.aboutSnapshotFocusText}
+                    </p>
+                  </div>
+                  <div className="rounded-2xl border border-violet-100 bg-white/90 p-4 dark:border-slate-700 dark:bg-slate-950/60">
+                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-violet-800 dark:text-violet-300">
+                      {t.aboutSnapshotStyle}
+                    </p>
+                    <p className="mt-2 text-sm leading-6 text-slate-700 dark:text-slate-200">
+                      {t.aboutSnapshotStyleText}
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -390,7 +454,7 @@ function AboutSection({ t }) {
             </h3>
             <div className="mt-4 sm:mt-5 space-y-2.5 sm:space-y-3">
               {[t.help1, t.help2, t.help3].map((line) => (
-                <Card key={line} className="p-3 sm:p-4 border-violet-100 dark:border-slate-700 bg-white/95 dark:bg-slate-900/80">
+                <Card key={line} className="portfolio-card-motion p-3 sm:p-4 border-violet-100 dark:border-slate-700 bg-white/95 dark:bg-slate-900/80">
                   <p className="text-sm sm:text-[0.95rem] text-slate-700 dark:text-slate-200">{line}</p>
                 </Card>
               ))}
@@ -411,9 +475,9 @@ function ProjectCard({ project, t, onNextProject }) {
   const Icon = project.icon;
 
   return (
-    <Card className="h-full p-3 sm:p-6 border-violet-100 dark:border-slate-700 bg-white/95 dark:bg-slate-900/80">
+    <Card className="portfolio-card-motion h-full p-3 sm:p-6 border-violet-100 dark:border-slate-700 bg-white/95 dark:bg-slate-900/80">
       <div className="flex items-center gap-2">
-        <Icon className="h-5 w-5 text-violet-800 dark:text-violet-300" />
+        <Icon className="portfolio-icon-pulse h-5 w-5 text-violet-800 dark:text-violet-300" />
         <Badge variant="secondary" className="bg-violet-100 dark:bg-violet-500/20 text-violet-900 dark:text-violet-200 text-[11px] sm:text-xs">
           {project.kind}
         </Badge>
@@ -466,12 +530,12 @@ function ProjectPreview({ project }) {
   const initials = getProjectInitials(project.title);
 
   return (
-    <div className="hidden lg:block relative rounded-2xl border border-violet-100 dark:border-slate-700 bg-white dark:bg-slate-900 p-3 sm:p-4 md:p-5 overflow-hidden">
+    <div className="portfolio-card-motion hidden lg:block relative rounded-2xl border border-violet-100 dark:border-slate-700 bg-white dark:bg-slate-900 p-3 sm:p-4 md:p-5 overflow-hidden">
       <div className="absolute right-0 top-0 h-20 w-20 sm:h-24 sm:w-24 rounded-bl-3xl bg-violet-100 dark:bg-violet-500/20" />
       <div className="absolute left-2.5 sm:left-3 bottom-2.5 sm:bottom-3 h-12 w-12 sm:h-14 sm:w-14 rounded-full bg-violet-100/70 dark:bg-violet-500/20" />
 
       <div className="absolute inset-3 sm:inset-5 rounded-2xl bg-violet-900 dark:bg-violet-600/80" />
-      <div className="relative h-full min-h-[250px] sm:min-h-[280px] rounded-2xl bg-slate-100 dark:bg-slate-800 border border-white/60 dark:border-slate-700 p-4 sm:p-6 flex flex-col justify-between">
+      <div className="portfolio-preview-screen relative h-full min-h-[250px] sm:min-h-[280px] rounded-2xl bg-slate-100 dark:bg-slate-800 border border-white/60 dark:border-slate-700 p-4 sm:p-6 flex flex-col justify-between">
         <div>
           <p className="text-xs uppercase tracking-widest text-violet-700 dark:text-violet-300 font-semibold">
             {project.id}
@@ -579,6 +643,7 @@ function FeaturedProjectsSection({ t }) {
 
     const timer = setInterval(() => {
       setIndex((v) => (v + 1) % items.length);
+      setTrackIndex((v) => v + 1);
     }, 5000);
 
     return () => clearInterval(timer);
@@ -673,7 +738,7 @@ function FeaturedProjectsSection({ t }) {
               type="button"
               onClick={() => goToProject(i)}
               aria-label={`Slide ${i + 1}`}
-              className={`h-2.5 rounded-full transition-all ${
+              className={`portfolio-dot-button h-2.5 rounded-full transition-all ${
                 i === index ? "w-8 bg-violet-800 dark:bg-violet-300" : "w-2.5 bg-violet-200 dark:bg-violet-500/40"
               }`}
             />
@@ -760,57 +825,111 @@ function ContactSection({ t, lang }) {
       id="contact"
       className="scroll-mt-0 snap-start snap-always h-[100svh]"
     >
-      <DottedSurface className="px-3 pb-3 pt-[calc(var(--nav-offset)+0.75rem)] sm:px-6 sm:pb-6 sm:pt-[calc(var(--nav-offset)+1.5rem)] md:px-8 md:pb-8 lg:px-10 lg:pb-10 h-[100svh] flex flex-col justify-between">
-        <div>
-          <SectionTitle eyebrow={null} title={t.contactTitle} subtitle={t.contactSubtitle} />
-
-          <div className="mt-4 sm:mt-8 grid gap-3 sm:gap-6 md:grid-cols-2 items-start">
-            <div className="space-y-3 sm:space-y-4">
-              <Card className="p-4 sm:p-6 flex flex-col items-start gap-2.5 sm:gap-3 border-violet-100 dark:border-slate-700 bg-white/95 dark:bg-slate-900/80">
-                <div className="flex items-center gap-3">
-                  <Mail className="h-6 w-6 text-violet-700 dark:text-violet-300" />
-                  <div>
-                    <p className="font-semibold text-slate-900 dark:text-slate-100">Email</p>
-                    <p className="text-sm text-slate-600 dark:text-slate-300">rickylcy8183@gmail.com</p>
-                  </div>
-                </div>
-                <Button asChild variant="outline" className="hidden sm:inline-flex mt-2 border-violet-300 dark:border-violet-400/70 text-violet-900 dark:text-violet-200">
-                  <a href="mailto:rickylcy8183@gmail.com">
-                    <Mail className="mr-2 h-4 w-4" />
-                    {t.sendEmail}
-                  </a>
-                </Button>
-              </Card>
-
-              <Card className="hidden sm:flex p-4 sm:p-6 flex-col items-start gap-2.5 sm:gap-3 border-violet-100 dark:border-slate-700 bg-white/95 dark:bg-slate-900/80">
-                <div className="flex items-center gap-3">
-                  <LinkedinIcon className="h-6 w-6 text-violet-700 dark:text-violet-300" />
-                  <div>
-                    <p className="font-semibold text-slate-900 dark:text-slate-100">LinkedIn</p>
-                    <p className="text-sm text-slate-600 dark:text-slate-300">Ching Yin (Ricky) Lau</p>
-                  </div>
-                </div>
-                <Button asChild variant="outline" className="mt-2 border-violet-300 dark:border-violet-400/70 text-violet-900 dark:text-violet-200">
-                  <a
-                    href="https://www.linkedin.com/in/ricky-lau-457825206/"
-                    target="_blank"
-                  >
-                    <LinkedinIcon className="mr-2 h-4 w-4" />
-                    {t.connectLinkedIn}
-                  </a>
-                </Button>
-              </Card>
+      <DottedSurface className="px-3 pb-3 pt-[calc(var(--nav-offset)+0.75rem)] sm:px-6 sm:pb-6 sm:pt-[calc(var(--nav-offset)+1.5rem)] md:px-8 md:pb-8 lg:px-10 lg:pb-10 h-[100svh]">
+        <div className="flex min-h-[calc(100svh-var(--nav-offset)-1.5rem)] flex-col justify-between sm:min-h-[calc(100svh-var(--nav-offset)-3rem)] md:min-h-[calc(100svh-var(--nav-offset)-3.5rem)]">
+          <div className="w-full">
+            <div className="max-w-3xl">
+            <Badge
+              variant="outline"
+              className="mb-2 hidden border-violet-300 text-violet-800 dark:border-violet-500/50 dark:text-violet-200 text-[11px] sm:inline-flex sm:text-xs"
+            >
+              {t.contactEyebrow}
+            </Badge>
+            <h2 className="text-[1.45rem] sm:text-[2.05rem] md:text-[2.8rem] lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100 leading-[1.08]">
+              {t.contactTitle}
+            </h2>
+            <p className="mt-1.5 sm:mt-3 max-w-2xl text-[0.86rem] sm:text-base text-slate-600 dark:text-slate-300 leading-5 sm:leading-7">
+              {t.contactSubtitle}
+            </p>
             </div>
 
-            <Card className="p-4 sm:p-6 border-violet-100 dark:border-slate-700 bg-white/95 dark:bg-slate-900/80">
-              <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 text-slate-900 dark:text-slate-100">{t.contactFormTitle}</h3>
+            <div className="mt-3 sm:mt-6 grid gap-3 sm:gap-5 md:grid-cols-[0.92fr_1.08fr] items-start">
+              <div className="hidden sm:block space-y-3">
+              <Card className="portfolio-card-motion overflow-hidden border-violet-100 dark:border-slate-700 bg-white/95 dark:bg-slate-900/80">
+                <div className="bg-violet-950 dark:bg-violet-500 px-4 py-3 text-white">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="h-4 w-4" />
+                    <p className="text-sm font-semibold">{t.contactStatus}</p>
+                  </div>
+                  <p className="mt-1 text-xs leading-5 text-violet-100 dark:text-violet-50">
+                    {t.contactStatusText}
+                  </p>
+                </div>
+
+                <div className="grid gap-2 p-3 sm:p-4">
+                  <a
+                    href="mailto:rickylcy8183@gmail.com"
+                    className="group flex items-center gap-3 rounded-xl border border-violet-100 bg-violet-50/60 p-3 transition-colors hover:border-violet-300 hover:bg-violet-50 dark:border-slate-700 dark:bg-slate-800/80 dark:hover:border-violet-400/50"
+                  >
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white text-violet-800 shadow-sm dark:bg-slate-900 dark:text-violet-200">
+                      <Mail className="h-4 w-4" />
+                    </span>
+                    <span className="min-w-0">
+                      <span className="block text-xs font-semibold uppercase tracking-[0.16em] text-violet-800 dark:text-violet-300">
+                        {t.contactDirect}
+                      </span>
+                      <span className="block truncate text-sm text-slate-700 group-hover:text-violet-900 dark:text-slate-200 dark:group-hover:text-violet-100">
+                        rickylcy8183@gmail.com
+                      </span>
+                    </span>
+                  </a>
+
+                  <div className="grid grid-cols-2 gap-2 text-xs sm:text-sm">
+                    <div className="rounded-xl border border-violet-100 bg-white/80 p-2.5 text-slate-700 dark:border-slate-700 dark:bg-slate-900/80 dark:text-slate-200">
+                      <MapPin className="mb-1 h-4 w-4 text-violet-700 dark:text-violet-300" />
+                      {t.contactLocation}
+                    </div>
+                    <div className="rounded-xl border border-violet-100 bg-white/80 p-2.5 text-slate-700 dark:border-slate-700 dark:bg-slate-900/80 dark:text-slate-200">
+                      <CheckCircle2 className="mb-1 h-4 w-4 text-violet-700 dark:text-violet-300" />
+                      {t.contactAvailability}
+                    </div>
+                  </div>
+
+                  <Button asChild variant="outline" className="hidden sm:inline-flex border-violet-300 dark:border-violet-400/70 text-violet-900 dark:text-violet-200">
+                    <a
+                      href="https://www.linkedin.com/in/ricky-lau-457825206/"
+                      target="_blank"
+                    >
+                      <LinkedinIcon className="mr-2 h-4 w-4" />
+                      {t.contactLinkedInTitle}
+                    </a>
+                  </Button>
+                </div>
+              </Card>
+              </div>
+
+              <Card className="portfolio-card-motion p-3.5 sm:p-5 border-violet-100 dark:border-slate-700 bg-white/95 dark:bg-slate-900/80">
+              <div className="mb-3 flex items-center justify-between gap-3">
+                <div>
+                  <h3 className="text-base sm:text-lg font-semibold text-slate-900 dark:text-slate-100">
+                    {t.contactFormTitle}
+                  </h3>
+                </div>
+                <span className="hidden sm:flex h-10 w-10 items-center justify-center rounded-full bg-violet-100 text-violet-800 dark:bg-violet-500/20 dark:text-violet-200">
+                  <Send className="h-4 w-4" />
+                </span>
+              </div>
+              <a
+                href="mailto:rickylcy8183@gmail.com"
+                className="mb-3 flex items-center gap-2 rounded-xl border border-violet-100 bg-violet-50/60 px-3 py-2 text-xs text-slate-700 dark:border-slate-700 dark:bg-slate-800/80 dark:text-slate-200 sm:hidden"
+              >
+                <Mail className="h-4 w-4 text-violet-700 dark:text-violet-300" />
+                <span className="font-semibold text-violet-800 dark:text-violet-300">
+                  {t.contactDirect}
+                </span>
+                <span className="min-w-0 truncate">rickylcy8183@gmail.com</span>
+              </a>
+              <p className="mb-3 flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300 sm:hidden">
+                <MapPin className="h-4 w-4 text-violet-700 dark:text-violet-300" />
+                {t.contactLocation}
+              </p>
               <form className="space-y-2.5 sm:space-y-3" onSubmit={handleSubmit}>
                 <Input
                   placeholder={t.contactNamePlaceholder}
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   disabled={sending}
-                  className="border-violet-200 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100"
+                  className="h-9 sm:h-10 border-violet-200 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100"
                 />
                 <Input
                   placeholder={t.contactEmailPlaceholder}
@@ -818,10 +937,10 @@ function ContactSection({ t, lang }) {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   disabled={sending}
-                  className="border-violet-200 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100"
+                  className="h-9 sm:h-10 border-violet-200 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100"
                 />
                 <textarea
-                  className="min-h-[92px] sm:min-h-[140px] w-full rounded-md border border-violet-200 dark:border-slate-600 bg-background dark:bg-slate-900 px-3 py-2 text-sm dark:text-slate-100"
+                  className="min-h-[74px] sm:min-h-[128px] w-full rounded-md border border-violet-200 dark:border-slate-600 bg-background dark:bg-slate-900 px-3 py-2 text-sm dark:text-slate-100"
                   placeholder={t.contactMessagePlaceholder}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
@@ -831,18 +950,20 @@ function ContactSection({ t, lang }) {
                 {ok ? <p className="text-sm text-emerald-600">{t.contactSuccess}</p> : null}
                 <Button
                   type="submit"
-                  className="w-full bg-violet-900 hover:bg-violet-800 dark:bg-violet-500 dark:hover:bg-violet-400"
+                  className="h-9 sm:h-10 w-full bg-violet-900 hover:bg-violet-800 dark:bg-violet-500 dark:hover:bg-violet-400"
                   disabled={sending}
                 >
                   {sending ? "Sending..." : t.contactButton}
+                  <Send className="ml-2 h-4 w-4" />
                 </Button>
               </form>
-            </Card>
+              </Card>
+            </div>
           </div>
-        </div>
 
-        <div className="mt-4 sm:mt-8 lg:mt-6">
-          <SiteFooter />
+          <div className="mt-4 sm:mt-8 lg:mt-6">
+            <SiteFooter />
+          </div>
         </div>
       </DottedSurface>
     </section>

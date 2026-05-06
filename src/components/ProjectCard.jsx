@@ -10,15 +10,16 @@ import { ArrowUpRight, ExternalLink, FileText } from "lucide-react";
 
 export default function ProjectCard({ p }) {
   return (
-    <Card className="overflow-hidden hover:shadow-md transition-shadow">
+    <Card className="portfolio-card-motion group overflow-hidden">
       <div className="aspect-video relative bg-muted">
         <Image
           src={p.image || "/projects/placeholder.png"}
           alt={p.title}
           fill
-          className="object-cover"
+          className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105"
           sizes="(max-width:768px) 100vw, 33vw"
         />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-violet-900/20 via-transparent to-white/20 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
       </div>
 
       <div className="p-4 flex flex-col gap-3">

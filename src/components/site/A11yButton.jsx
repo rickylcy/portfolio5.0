@@ -3,10 +3,8 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
-  Accessibility,
   Languages,
   Moon,
-  Plus,
   Settings2,
   Sun,
   Type,
@@ -60,7 +58,7 @@ export default function A11yButton() {
   }
 
   return (
-    <div className="fixed bottom-2 right-2 sm:bottom-4 sm:right-4 z-50">
+    <div className="fixed bottom-2 right-2 sm:bottom-4 sm:right-4 z-50 flex flex-col items-end">
       {open && (
         <div className="mb-2 sm:mb-3 w-[min(17rem,calc(100vw-1.5rem))] rounded-2xl border border-violet-200/80 dark:border-slate-700 bg-white/95 dark:bg-slate-900/95 backdrop-blur p-2.5 sm:p-3 shadow-[0_18px_40px_-24px_rgba(31,38,135,0.55)] dark:shadow-[0_18px_40px_-24px_rgba(2,6,23,0.95)]">
           <div className="mb-2.5 text-[11px] sm:text-xs font-semibold tracking-wide text-violet-700 dark:text-violet-300">
@@ -116,7 +114,7 @@ export default function A11yButton() {
         onClick={() => setOpen((v) => !v)}
         aria-label="Settings"
       >
-        {open ? <Accessibility className="h-5 w-5" /> : <Settings2 className="h-5 w-5" />}
+        <Settings2 className="h-5 w-5" />
       </Button>
     </div>
   );

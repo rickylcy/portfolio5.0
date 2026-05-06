@@ -14,7 +14,9 @@ export default function ResumeActions({
   return (
     <div className="mt-4 flex flex-wrap items-center gap-3 print:hidden">
       <Button asChild variant="outline">
-        <a href={pdfHref}>{downloadText}</a>
+        <a href={pdfHref} download>
+          {downloadText}
+        </a>
       </Button>
       <Button variant="outline" onClick={() => window.print()}>
         {printText}
