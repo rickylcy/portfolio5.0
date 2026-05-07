@@ -9,6 +9,8 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useLang } from "@/lib/lang";
 import {
+  ChevronLeft,
+  ChevronRight,
   Layers,
   MonitorSmartphone,
   Workflow,
@@ -504,6 +506,12 @@ function ProjectCard({ project, lang, t, onOpenDemo }) {
       : t.personalLabel;
 
   const hasPublicDemo = Boolean(project.liveUrl);
+  const canNavigateGallery = gallery.length > 1;
+
+  function goToShot(nextIndex) {
+    if (!canNavigateGallery) return;
+    setActiveShot((nextIndex + gallery.length) % gallery.length);
+  }
   const hasCode = Boolean(project.codeUrl);
   const displayTags = (project.tags || []).slice(0, 3);
 
@@ -615,6 +623,7 @@ function CategoryFilter({ categories, activeCategory, onChange, t }) {
 /* ---------------- demo modal ---------------- */
 
 function DemoModal({ project, lang, t, onClose }) {
+  const [activeShot, setActiveShot] = useState(0);
   const open = !!project;
   if (!project) return null;
 
@@ -622,6 +631,10 @@ function DemoModal({ project, lang, t, onClose }) {
   const title = isZh ? project.slugZh : project.slug;
   const desc = isZh ? project.descZh : project.descEn;
   const gallery = project.gallery || [];
+  const activeGalleryIndex = gallery.length
+    ? Math.min(activeShot, gallery.length - 1)
+    : 0;
+  const activeGalleryImage = gallery[activeGalleryIndex];
 
   const problem = isZh ? project.problemZh : project.problemEn;
   const solution = isZh ? project.solutionZh : project.solutionEn;
@@ -704,20 +717,74 @@ function DemoModal({ project, lang, t, onClose }) {
               <p className="text-xs font-semibold mb-2 uppercase tracking-wide text-muted-foreground">
                 {t.screenshots}
               </p>
-              <div className="grid gap-3 md:grid-cols-2">
+
+              <div className="relative overflow-hidden rounded-2xl border border-violet-100 bg-white shadow-inner dark:border-slate-800 dark:bg-slate-100">
+                <div className="relative aspect-[2/1] min-h-[220px]">
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <Image
+                      src={activeGalleryImage}
+                      alt={`${title} screenshot ${activeGalleryIndex + 1}`}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 70vw"
+                      className="bg-white object-contain object-center"
+                    />
+                  </div>
+
+                  {canNavigateGallery ? (
+                    <>
+                      <Button
+                        type="button"
+                        size="icon"
+                        variant="secondary"
+                        className="absolute left-2 top-1/2 z-10 h-9 w-9 -translate-y-1/2 rounded-full bg-white/90 text-violet-950 shadow-lg backdrop-blur hover:bg-white dark:bg-slate-900/90 dark:text-violet-200 dark:hover:bg-slate-900"
+                        onClick={() => goToShot(activeGalleryIndex - 1)}
+                        aria-label="Previous screenshot"
+                      >
+                        <ChevronLeft className="h-4 w-4" />
+                      </Button>
+                      <Button
+                        type="button"
+                        size="icon"
+                        variant="secondary"
+                        className="absolute right-2 top-1/2 z-10 h-9 w-9 -translate-y-1/2 rounded-full bg-white/90 text-violet-950 shadow-lg backdrop-blur hover:bg-white dark:bg-slate-900/90 dark:text-violet-200 dark:hover:bg-slate-900"
+                        onClick={() => goToShot(activeGalleryIndex + 1)}
+                        aria-label="Next screenshot"
+                      >
+                        <ChevronRight className="h-4 w-4" />
+                      </Button>
+                    </>
+                  ) : null}
+                </div>
+
+                <span className="absolute bottom-2 left-2 rounded-full bg-white/90 px-2.5 py-1 text-xs font-semibold text-violet-900 shadow-sm dark:bg-slate-900/90 dark:text-violet-200">
+                  {activeGalleryIndex + 1} / {gallery.length}
+                </span>
+              </div>
+
+              <div className="mt-3 flex gap-2 overflow-x-auto rounded-2xl border border-violet-100 bg-white/85 p-2 dark:border-slate-800 dark:bg-slate-900/80">
                 {gallery.map((src, idx) => (
-                  <div
+                  <button
+                    type="button"
                     key={`${project.id}-shot-${idx}`}
-                    className="relative overflow-hidden rounded-md border bg-card min-h-44"
+                    className={`group relative h-16 w-24 shrink-0 overflow-hidden rounded-xl border bg-card text-left transition sm:h-20 sm:w-32 ${
+                      idx === activeGalleryIndex
+                        ? "border-violet-700 ring-2 ring-violet-200 dark:border-violet-300 dark:ring-violet-500/30"
+                        : "border-transparent opacity-70 hover:opacity-100"
+                    }`}
+                    onClick={() => setActiveShot(idx)}
+                    aria-label={`View ${title} screenshot ${idx + 1}`}
                   >
                     <Image
                       src={src}
                       alt={`${title} screenshot ${idx + 1}`}
                       fill
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      className="object-cover"
+                      sizes="128px"
+                      className="object-cover transition duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105 group-hover:brightness-90"
                     />
-                  </div>
+                    <span className="absolute bottom-1 right-1 rounded-full bg-slate-950/75 px-1.5 py-0.5 text-[10px] font-semibold text-white">
+                      {idx + 1}
+                    </span>
+                  </button>
                 ))}
               </div>
             </div>

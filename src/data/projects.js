@@ -17,7 +17,14 @@ export const projects = [
     status: "Internal",
     demoUrl: null, // no public demo – keeps Demo button hidden
     caseUrl: "/projects/noodles-broadbeach", // you can create this later
-    image: "/projects/noodles-broadbeach.png", // put a screenshot/placeholder here
+    // Put screenshots in public/projects/noodles-broadbeach/
+    // Then list as many as you want here. 1, 2, 3, or 4+ all work.
+    images: [
+      "/projects/noodles-broadbeach/01-dashboard.png",
+      "/projects/noodles-broadbeach/02-report-list.png",
+      "/projects/noodles-broadbeach/03-roster.png",
+    ],
+    image: "/projects/noodles-broadbeach/01-dashboard.png",
   },
   {
     id: "mobile-ordering",
@@ -36,7 +43,12 @@ export const projects = [
     status: "In Production",
     demoUrl: "/portal/login",
     caseUrl: "/projects/mobile-ordering",
-    image: "/projects/mobile-ordering.png",
+    images: [
+      "/projects/mobile-ordering/01-menu.png",
+      "/projects/mobile-ordering/02-cart.png",
+      "/projects/mobile-ordering/03-admin.png",
+    ],
+    image: "/projects/mobile-ordering/01-menu.png",
   },
   {
     id: "sales-report",
@@ -48,7 +60,11 @@ export const projects = [
     status: "Live",
     demoUrl: "/reports",
     caseUrl: "/projects/sales-report",
-    image: "/projects/sales-report.png",
+    images: [
+      "/projects/sales-report/01-summary.png",
+      "/projects/sales-report/02-chart.png",
+    ],
+    image: "/projects/sales-report/01-summary.png",
   },
   {
     id: "chat-app",
@@ -60,7 +76,11 @@ export const projects = [
     status: "Completed",
     demoUrl: "https://ricky-chat-app.vercel.app/",
     caseUrl: "/projects/chat-app",
-    image: "/projects/chat-app.png",
+    images: [
+      "/projects/chat-app/01-desktop.png",
+      "/projects/chat-app/02-mobile.png",
+    ],
+    image: "/projects/chat-app/01-desktop.png",
   },
   {
     id: "amherst",
@@ -72,7 +92,11 @@ export const projects = [
     status: "In Progress",
     demoUrl: "/",
     caseUrl: "/projects/amherst",
-    image: "/projects/amherst.png",
+    images: [
+      "/projects/amherst/01-home.png",
+      "/projects/amherst/02-order.png",
+    ],
+    image: "/projects/amherst/01-home.png",
   },
   {
     id: "plan-craft",
@@ -84,7 +108,11 @@ export const projects = [
     status: "Building",
     demoUrl: "/",
     caseUrl: "/projects/plan-craft",
-    image: "/projects/plan-craft.png",
+    images: [
+      "/projects/plan-craft/01-board.png",
+      "/projects/plan-craft/02-detail.png",
+    ],
+    image: "/projects/plan-craft/01-board.png",
   },
   {
     id: "good-forum",
@@ -96,6 +124,10 @@ export const projects = [
     status: "WIP",
     demoUrl: "/",
     caseUrl: "/projects/good-forum",
-    image: "/projects/good-forum.png",
+    images: [
+      "/projects/good-forum/01-home.png",
+      "/projects/good-forum/02-thread.png",
+    ],
+    image: "/projects/good-forum/01-home.png",
   },
 ];

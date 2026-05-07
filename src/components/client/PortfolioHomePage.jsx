@@ -13,6 +13,7 @@ import {
   ChevronRight,
   Code2,
   Globe,
+  Images,
   Layers,
   Mail,
   MapPin,
@@ -20,9 +21,11 @@ import {
   Linkedin as LinkedinIcon,
   MoveRight,
   Send,
+  ZoomIn,
 } from "lucide-react";
 import emailjs from "@emailjs/browser";
 import { useLang } from "@/lib/lang";
+import ProjectImageViewer from "@/components/ProjectImageViewer";
 import ResumePreviewCard from "@/components/resume/ResumePreviewCard";
 import SiteFooter from "@/components/site/SiteFooter";
 
@@ -41,15 +44,25 @@ const homeCopy = {
     aboutText:
       "I am looking for developer opportunities where I can turn real business needs into simple, reliable web products. I enjoy working across UI, backend logic, data flow, and practical integrations.",
     aboutHelpTitle: "What I bring to a team",
-    help1: "Full-stack development with Next.js, React, Node.js, APIs, and databases",
-    help2: "Care for responsive UI, accessibility, maintainable components, and clear user flows",
-    help3: "Hands-on experience with POS, ordering, reporting, dashboard, and integration workflows",
+    help1:
+      "Full-stack development with Next.js, React, Node.js, APIs, and databases",
+    help2:
+      "Care for responsive UI, accessibility, maintainable components, and clear user flows",
+    help3:
+      "Hands-on experience with POS, ordering, reporting, dashboard, and integration workflows",
     aboutSnapshotLabel: "Role snapshot",
     aboutSnapshotTitle: "Full-stack developer",
-    aboutSnapshotText: "Brisbane based, bilingual, and open to remote-friendly teams.",
-    aboutSnapshotTags: ["React / Next.js", "APIs & data", "UX-minded UI", "Business systems"],
+    aboutSnapshotText:
+      "Brisbane based, bilingual, and open to remote-friendly teams.",
+    aboutSnapshotTags: [
+      "React / Next.js",
+      "APIs & data",
+      "UX-minded UI",
+      "Business systems",
+    ],
     aboutSnapshotFocus: "Focus",
-    aboutSnapshotFocusText: "Build useful software that people can actually rely on.",
+    aboutSnapshotFocusText:
+      "Build useful software that people can actually rely on.",
     aboutSnapshotStyle: "Working style",
     aboutSnapshotStyleText: "Clear, practical, calm under messy requirements.",
     projectsEyebrow: "Featured projects",
@@ -70,7 +83,8 @@ const homeCopy = {
     contactEmailPlaceholder: "Your email",
     contactMessagePlaceholder: "Role, company, or quick introduction",
     contactStatus: "Job opportunities",
-    contactStatusText: "Open to full-stack, frontend, and product-focused developer roles.",
+    contactStatusText:
+      "Open to full-stack, frontend, and product-focused developer roles.",
     contactLocation: "Brisbane based · open to remote work",
     contactAvailability: "Full-time, contract, or hybrid opportunities",
     contactDirect: "Direct contact",
@@ -89,6 +103,15 @@ const homeCopy = {
         title: "Noodle Broadbeach System",
         company: "Noodle Broadbeach",
         location: "Broadbeach, Queensland",
+        // To show screenshots in the one-page slideshow, upload files to
+        // public/projects/noodles-broadbeach/ and uncomment/update this array.
+        images: [
+          //"/projects/noodles-broadbeach/01-logo.png",
+          "/projects/noodles-broadbeach/02-login.png",
+          "/projects/noodles-broadbeach/03-dashboard.png",
+          "/projects/noodles-broadbeach/04-roster.png",
+          "/projects/noodles-broadbeach/05-accounting.png",
+        ],
         summary:
           "Unified reporting, accounting, and rostering platform for a multi-store restaurant group.",
         points: [
@@ -104,6 +127,12 @@ const homeCopy = {
         kind: "Business / Client",
         title: "Visa Portal",
         company: "Visa To China",
+        images: [
+          "/projects/visa-to-china/01-home.png",
+          "/projects/visa-to-china/02-first.png",
+          "/projects/visa-to-china/03-guide.png",
+          "/projects/visa-to-china/04-contact.png",
+        ],
         summary:
           "Public-facing website that helps customers understand visa steps and submit enquiries.",
         points: [
@@ -119,6 +148,15 @@ const homeCopy = {
         icon: MonitorSmartphone,
         kind: "Production",
         title: "Mobile Ordering",
+        company: "POS Republic",
+        images: [
+          "/projects/mobile-ordering/01-home.png",
+          "/projects/mobile-ordering/02-category.png",
+          "/projects/mobile-ordering/03-item.png",
+          "/projects/mobile-ordering/04-combo.png",
+          "/projects/mobile-ordering/05-milktea.png",
+          "/projects/mobile-ordering/06-cart.png",
+        ],
         summary:
           "QR dine-in and takeaway ordering with POS integration, printer routing, and store admin tools.",
         points: [
@@ -133,6 +171,14 @@ const homeCopy = {
         icon: Code2,
         kind: "Internal",
         title: "Sales Report Dashboard",
+        company: "POS Republic",
+        images: [
+          "/projects/sales-report-dashboard/01-login.png",
+          "/projects/sales-report-dashboard/02-dashboard.png",
+          "/projects/sales-report-dashboard/03-report.png",
+          "/projects/sales-report-dashboard/04-history.png",
+          "/projects/sales-report-dashboard/05-order.png",
+        ],
         summary:
           "Responsive analytics dashboard for daily, hourly, and item-level sales performance.",
         points: [
@@ -147,6 +193,11 @@ const homeCopy = {
         icon: MonitorSmartphone,
         kind: "Production",
         title: "POS Customer Display",
+        company: "POS Republic",
+        images: [
+          "/projects/customer-display/01-display.png",
+          "/projects/customer-display/02-display.png",
+        ],
         summary:
           "Secondary counter display that mirrors basket updates, totals, and promotional content in real time.",
         points: [
@@ -163,7 +214,8 @@ const homeCopy = {
     hi: "你好，我是",
     role: "Ricky Lau",
     roleSub: "全端工程師",
-    intro: "我專注打造實用且穩定的網頁產品，重視使用體驗、可維護架構與可靠交付。",
+    intro:
+      "我專注打造實用且穩定的網頁產品，重視使用體驗、可維護架構與可靠交付。",
     viewProjects: "查看專案",
     contactCta: "聯絡我",
     aboutEyebrow: "關於我",
@@ -177,7 +229,12 @@ const homeCopy = {
     aboutSnapshotLabel: "職位定位",
     aboutSnapshotTitle: "全端工程師",
     aboutSnapshotText: "位於布里斯本，具備中英雙語能力，也開放遠端合作團隊。",
-    aboutSnapshotTags: ["React / Next.js", "API 與資料", "重視 UX 的 UI", "商業系統"],
+    aboutSnapshotTags: [
+      "React / Next.js",
+      "API 與資料",
+      "重視 UX 的 UI",
+      "商業系統",
+    ],
     aboutSnapshotFocus: "專注方向",
     aboutSnapshotFocusText: "打造真正實用、穩定且可被信任的軟體。",
     aboutSnapshotStyle: "工作方式",
@@ -216,6 +273,11 @@ const homeCopy = {
         title: "Noodle Broadbeach 系統",
         company: "Noodle Broadbeach",
         location: "昆士蘭 Broadbeach",
+        // images: [
+        //   "/projects/noodles-broadbeach/01-dashboard.png",
+        //   "/projects/noodles-broadbeach/02-report-list.png",
+        //   "/projects/noodles-broadbeach/03-roster.png",
+        // ],
         summary: "整合營業報表、會計與排班的多店管理平台。",
         points: [
           "取代原本試算表與聊天工具流程",
@@ -230,6 +292,10 @@ const homeCopy = {
         kind: "商業 / 客戶",
         title: "Visa Portal",
         company: "Visa To China",
+        // images: [
+        //   "/projects/visa-portal/01-home.png",
+        //   "/projects/visa-portal/02-steps.png",
+        // ],
         summary: "協助客戶理解簽證流程並留下詢問資料的對外網站。",
         points: [
           "流程導向的清晰資訊架構",
@@ -244,6 +310,7 @@ const homeCopy = {
         icon: MonitorSmartphone,
         kind: "正式上線",
         title: "行動點餐系統",
+        company: "POS Republic",
         summary: "支援 QR 內用與外帶點餐，整合 POS、印表機路由與門市後台。",
         points: [
           "降低重複輸入訂單",
@@ -257,6 +324,7 @@ const homeCopy = {
         icon: Code2,
         kind: "內部系統",
         title: "Sales Report Dashboard",
+        company: "POS Republic",
         summary: "提供日、時段與商品層級銷售分析的響應式儀表板。",
         points: [
           "讓老闆與主管快速掌握 KPI",
@@ -270,6 +338,7 @@ const homeCopy = {
         icon: MonitorSmartphone,
         kind: "正式上線",
         title: "POS 客顯系統",
+        company: "POS Republic",
         summary: "櫃檯副螢幕即時顯示購物籃、金額與促銷資訊，提升結帳透明度。",
         points: [
           "與主 POS 終端即時同步",
@@ -454,14 +523,23 @@ function AboutSection({ t }) {
           </div>
 
           <div className="order-1 lg:order-2">
-            <SectionTitle eyebrow={t.aboutEyebrow} title={t.aboutTitle} subtitle={t.aboutText} />
+            <SectionTitle
+              eyebrow={t.aboutEyebrow}
+              title={t.aboutTitle}
+              subtitle={t.aboutText}
+            />
             <h3 className="mt-4 sm:mt-7 text-[1.35rem] sm:text-3xl md:text-4xl font-extrabold leading-tight text-violet-950 dark:text-violet-200">
               {t.aboutHelpTitle}
             </h3>
             <div className="mt-4 sm:mt-5 space-y-2.5 sm:space-y-3">
               {[t.help1, t.help2, t.help3].map((line) => (
-                <Card key={line} className="portfolio-card-motion p-3 sm:p-4 border-violet-100 dark:border-slate-700 bg-white/95 dark:bg-slate-900/80">
-                  <p className="text-sm sm:text-[0.95rem] text-slate-700 dark:text-slate-200">{line}</p>
+                <Card
+                  key={line}
+                  className="portfolio-card-motion p-3 sm:p-4 border-violet-100 dark:border-slate-700 bg-white/95 dark:bg-slate-900/80"
+                >
+                  <p className="text-sm sm:text-[0.95rem] text-slate-700 dark:text-slate-200">
+                    {line}
+                  </p>
                 </Card>
               ))}
             </div>
@@ -477,6 +555,33 @@ function getProjectInitials(title) {
   return (words[0]?.[0] || "P") + (words[1]?.[0] || "R");
 }
 
+function getProjectImages(project) {
+  return (project.images || project.gallery || []).filter(Boolean);
+}
+
+function ProjectShotTile({ project, src, index, className = "", onOpenImage }) {
+  return (
+    <button
+      type="button"
+      className={`group/shot relative overflow-hidden rounded-xl border border-white/60 bg-slate-100 text-left dark:border-slate-700 dark:bg-slate-800 ${className}`}
+      onClick={() => onOpenImage(project, index)}
+      aria-label={`View ${project.title} screenshot ${index + 1}`}
+    >
+      <Image
+        src={src}
+        alt={`${project.title} screenshot ${index + 1}`}
+        fill
+        className="object-cover transition duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/shot:scale-110 group-hover/shot:brightness-90"
+        sizes="(max-width: 1024px) 100vw, 42vw"
+      />
+      <span className="absolute inset-0 bg-gradient-to-tr from-violet-950/45 via-transparent to-white/20 opacity-0 transition-opacity duration-500 group-hover/shot:opacity-100" />
+      <span className="absolute right-2 top-2 flex h-8 w-8 translate-y-1 items-center justify-center rounded-full bg-white/90 text-violet-900 opacity-0 shadow-sm transition-all duration-300 group-hover/shot:translate-y-0 group-hover/shot:opacity-100 dark:bg-slate-900/90 dark:text-violet-200">
+        <ZoomIn className="h-4 w-4" />
+      </span>
+    </button>
+  );
+}
+
 function ProjectCard({ project, t, onNextProject }) {
   const Icon = project.icon;
 
@@ -484,7 +589,10 @@ function ProjectCard({ project, t, onNextProject }) {
     <Card className="portfolio-card-motion h-full p-3 sm:p-6 border-violet-100 dark:border-slate-700 bg-white/95 dark:bg-slate-900/80">
       <div className="flex items-center gap-2">
         <Icon className="portfolio-icon-pulse h-5 w-5 text-violet-800 dark:text-violet-300" />
-        <Badge variant="secondary" className="bg-violet-100 dark:bg-violet-500/20 text-violet-900 dark:text-violet-200 text-[11px] sm:text-xs">
+        <Badge
+          variant="secondary"
+          className="bg-violet-100 dark:bg-violet-500/20 text-violet-900 dark:text-violet-200 text-[11px] sm:text-xs"
+        >
           {project.kind}
         </Badge>
       </div>
@@ -514,12 +622,18 @@ function ProjectCard({ project, t, onNextProject }) {
       </ul>
 
       <p className="mt-3 sm:mt-4 text-[0.86rem] sm:text-sm text-slate-600 dark:text-slate-300">
-        <span className="font-semibold text-slate-800 dark:text-slate-100">{t.stackLabel}:</span> {project.stack}
+        <span className="font-semibold text-slate-800 dark:text-slate-100">
+          {t.stackLabel}:
+        </span>{" "}
+        {project.stack}
       </p>
 
       <div className="mt-4 sm:mt-5 flex gap-2.5 sm:gap-3">
         {project.liveUrl ? (
-          <Button asChild className="h-9 flex-1 bg-violet-900 hover:bg-violet-800 dark:bg-violet-500 dark:hover:bg-violet-400">
+          <Button
+            asChild
+            className="h-9 flex-1 bg-violet-900 hover:bg-violet-800 dark:bg-violet-500 dark:hover:bg-violet-400"
+          >
             <Link href={project.liveUrl} target="_blank">
               {t.viewSite}
             </Link>
@@ -537,8 +651,11 @@ function ProjectCard({ project, t, onNextProject }) {
   );
 }
 
-function ProjectPreview({ project }) {
+function ProjectPreview({ project, onOpenImage }) {
   const initials = getProjectInitials(project.title);
+  const projectImages = getProjectImages(project);
+  const visibleImages = projectImages.slice(0, 4);
+  const remainingImages = projectImages.length - visibleImages.length;
 
   return (
     <div className="portfolio-card-motion hidden lg:block relative rounded-2xl border border-violet-100 dark:border-slate-700 bg-white dark:bg-slate-900 p-3 sm:p-4 md:p-5 overflow-hidden">
@@ -547,20 +664,80 @@ function ProjectPreview({ project }) {
 
       <div className="absolute inset-3 sm:inset-5 rounded-2xl bg-violet-900 dark:bg-violet-600/80" />
       <div className="portfolio-preview-screen relative h-full min-h-[250px] sm:min-h-[280px] rounded-2xl bg-slate-100 dark:bg-slate-800 border border-white/60 dark:border-slate-700 p-4 sm:p-6 flex flex-col justify-between">
-        <div>
-          <p className="text-xs uppercase tracking-widest text-violet-700 dark:text-violet-300 font-semibold">
-            {project.id}
-          </p>
-          <p className="mt-2 text-base sm:text-lg font-semibold text-slate-800 dark:text-slate-100">
-            {project.title}
-          </p>
-        </div>
+        {projectImages.length ? (
+          <>
+            <div className="flex items-center justify-between gap-3">
+              <div>
+                <p className="text-xs uppercase tracking-widest text-violet-700 dark:text-violet-300 font-semibold">
+                  {project.company || project.id}
+                </p>
+                <p className="mt-2 text-base sm:text-lg font-semibold text-slate-800 dark:text-slate-100">
+                  {project.title}
+                </p>
+              </div>
+              <span className="inline-flex items-center gap-1 rounded-full bg-violet-100 px-2.5 py-1 text-xs font-semibold text-violet-900 dark:bg-violet-500/20 dark:text-violet-200">
+                <Images className="h-3.5 w-3.5" />
+                {projectImages.length}
+              </span>
+            </div>
 
-        <div className="h-24 sm:h-28 rounded-xl bg-white dark:bg-slate-900 border dark:border-slate-600 flex items-center justify-center">
-          <p className="text-3xl sm:text-4xl font-bold tracking-widest text-violet-900 dark:text-violet-200">
-            {initials}
-          </p>
-        </div>
+            <div
+              className={`mt-4 grid flex-1 gap-2 ${
+                visibleImages.length === 1
+                  ? "grid-cols-1"
+                  : visibleImages.length === 2
+                    ? "grid-cols-2"
+                    : "grid-cols-2"
+              }`}
+            >
+              {visibleImages.map((src, index) => (
+                <div
+                  key={`${project.id}-featured-shot-${src}`}
+                  className={`relative min-h-24 ${
+                    visibleImages.length === 3 && index === 0
+                      ? "row-span-2"
+                      : ""
+                  }`}
+                >
+                  <ProjectShotTile
+                    project={project}
+                    src={src}
+                    index={index}
+                    className="h-full w-full"
+                    onOpenImage={onOpenImage}
+                  />
+                  {remainingImages > 0 && index === visibleImages.length - 1 ? (
+                    <button
+                      type="button"
+                      className="absolute inset-0 flex items-center justify-center rounded-xl bg-violet-950/70 text-sm font-semibold text-white backdrop-blur-[2px]"
+                      onClick={() => onOpenImage(project, index)}
+                      aria-label={`View ${remainingImages} more ${project.title} screenshots`}
+                    >
+                      +{remainingImages} more
+                    </button>
+                  ) : null}
+                </div>
+              ))}
+            </div>
+          </>
+        ) : (
+          <>
+            <div>
+              <p className="text-xs uppercase tracking-widest text-violet-700 dark:text-violet-300 font-semibold">
+                {project.id}
+              </p>
+              <p className="mt-2 text-base sm:text-lg font-semibold text-slate-800 dark:text-slate-100">
+                {project.title}
+              </p>
+            </div>
+
+            <div className="h-24 sm:h-28 rounded-xl bg-white dark:bg-slate-900 border dark:border-slate-600 flex items-center justify-center">
+              <p className="text-3xl sm:text-4xl font-bold tracking-widest text-violet-900 dark:text-violet-200">
+                {initials}
+              </p>
+            </div>
+          </>
+        )}
 
         <div className="flex flex-wrap gap-2">
           {project.stack
@@ -587,6 +764,7 @@ function FeaturedProjectsSection({ t }) {
   const [isPaused, setIsPaused] = useState(false);
   const [isJumping, setIsJumping] = useState(false);
   const [reduceMotionEnabled, setReduceMotionEnabled] = useState(false);
+  const [imageViewer, setImageViewer] = useState(null);
 
   const slides = useMemo(() => {
     if (!items.length) return [];
@@ -634,13 +812,14 @@ function FeaturedProjectsSection({ t }) {
 
     function syncReduceMotionState() {
       setReduceMotionEnabled(
-        document.documentElement.classList.contains("reduce-motion")
+        document.documentElement.classList.contains("reduce-motion"),
       );
     }
 
     syncReduceMotionState();
     window.addEventListener("a11y:change", syncReduceMotionState);
-    return () => window.removeEventListener("a11y:change", syncReduceMotionState);
+    return () =>
+      window.removeEventListener("a11y:change", syncReduceMotionState);
   }, []);
 
   useEffect(() => {
@@ -676,7 +855,8 @@ function FeaturedProjectsSection({ t }) {
 
     if (trackIndex < 0 || trackIndex > items.length + 1) {
       const resetTimer = window.setTimeout(() => {
-        const safeIndex = ((index % items.length) + items.length) % items.length;
+        const safeIndex =
+          ((index % items.length) + items.length) % items.length;
         setIsJumping(true);
         setIndex(safeIndex);
         setTrackIndex(safeIndex + 1);
@@ -724,80 +904,116 @@ function FeaturedProjectsSection({ t }) {
           onMouseLeave={() => setIsPaused(false)}
         >
           <div className="flex items-start justify-between gap-3">
-          <SectionTitle
-            eyebrow={t.projectsEyebrow}
-            title={t.projectsTitle}
-            subtitle={t.projectsSubtitle}
-            hideEyebrowOnMobile
-            hideSubtitleOnMobile
-          />
-
-          <div className="hidden sm:flex items-center gap-1.5">
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={prev}
-              aria-label={t.previous}
-              className="h-9 w-9 sm:h-10 sm:w-10"
-            >
-              <ChevronLeft className="h-4 w-4" />
-            </Button>
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={next}
-              aria-label={t.next}
-              className="h-9 w-9 sm:h-10 sm:w-10"
-            >
-              <ChevronRight className="h-4 w-4" />
-            </Button>
-          </div>
-        </div>
-
-        <div className="mt-4 sm:mt-7 overflow-hidden">
-          <div
-            className={`flex ${
-              reduceMotionEnabled || isJumping
-                ? "transition-none"
-                : "transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none"
-            }`}
-            style={{ transform: `translateX(-${trackIndex * 100}%)` }}
-            onTransitionEnd={handleTrackTransitionEnd}
-          >
-            {slides.map((project, slideIndex) => {
-              const isCurrentSlide = slideIndex === trackIndex;
-
-              return (
-                <div
-                  key={`${project.id}-${slideIndex}`}
-                  className="min-w-full"
-                  aria-hidden={!isCurrentSlide}
-                  inert={!isCurrentSlide ? true : undefined}
-                >
-                  <div className="grid lg:grid-cols-2 gap-4 md:gap-6 items-stretch">
-                    <ProjectCard project={project} t={t} onNextProject={next} />
-                    <ProjectPreview project={project} />
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        <div className="mt-3 sm:mt-5 flex flex-wrap gap-2">
-          {items.map((item, i) => (
-            <button
-              key={item.id}
-              type="button"
-              onClick={() => goToProject(i)}
-              aria-label={`Slide ${i + 1}`}
-              className={`portfolio-dot-button h-2.5 rounded-full transition-all ${
-                i === index ? "w-8 bg-violet-800 dark:bg-violet-300" : "w-2.5 bg-violet-200 dark:bg-violet-500/40"
-              }`}
+            <SectionTitle
+              eyebrow={t.projectsEyebrow}
+              title={t.projectsTitle}
+              subtitle={t.projectsSubtitle}
+              hideEyebrowOnMobile
+              hideSubtitleOnMobile
             />
-          ))}
+
+            <div className="hidden sm:flex items-center gap-1.5">
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={prev}
+                aria-label={t.previous}
+                className="h-9 w-9 sm:h-10 sm:w-10"
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={next}
+                aria-label={t.next}
+                className="h-9 w-9 sm:h-10 sm:w-10"
+              >
+                <ChevronRight className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+
+          <div className="mt-4 sm:mt-7 overflow-hidden">
+            <div
+              className={`flex ${
+                reduceMotionEnabled || isJumping
+                  ? "transition-none"
+                  : "transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none"
+              }`}
+              style={{ transform: `translateX(-${trackIndex * 100}%)` }}
+              onTransitionEnd={handleTrackTransitionEnd}
+            >
+              {slides.map((project, slideIndex) => {
+                const isCurrentSlide = slideIndex === trackIndex;
+
+                return (
+                  <div
+                    key={`${project.id}-${slideIndex}`}
+                    className="min-w-full"
+                    aria-hidden={!isCurrentSlide}
+                    inert={!isCurrentSlide ? true : undefined}
+                  >
+                    <div className="grid lg:grid-cols-2 gap-4 md:gap-6 items-stretch">
+                      <ProjectCard
+                        project={project}
+                        t={t}
+                        onNextProject={next}
+                      />
+                      <ProjectPreview
+                        project={project}
+                        onOpenImage={(targetProject, targetIndex) =>
+                          setImageViewer({
+                            project: targetProject,
+                            index: targetIndex,
+                          })
+                        }
+                      />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="mt-3 sm:mt-5 flex flex-wrap gap-2">
+            {items.map((item, i) => (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => goToProject(i)}
+                aria-label={`Slide ${i + 1}`}
+                className={`portfolio-dot-button h-2.5 rounded-full transition-all ${
+                  i === index
+                    ? "w-8 bg-violet-800 dark:bg-violet-300"
+                    : "w-2.5 bg-violet-200 dark:bg-violet-500/40"
+                }`}
+              />
+            ))}
+          </div>
         </div>
-        </div>
+
+        <ProjectImageViewer
+          open={Boolean(imageViewer)}
+          title={imageViewer?.project?.title}
+          description={
+            imageViewer?.project
+              ? [imageViewer.project.company, imageViewer.project.location]
+                  .filter(Boolean)
+                  .join(" · ")
+              : ""
+          }
+          images={
+            imageViewer?.project ? getProjectImages(imageViewer.project) : []
+          }
+          activeIndex={imageViewer?.index ?? 0}
+          onActiveIndexChange={(nextIndex) =>
+            setImageViewer((current) =>
+              current ? { ...current, index: nextIndex } : current,
+            )
+          }
+          onClose={() => setImageViewer(null)}
+        />
       </DottedSurface>
     </section>
   );
@@ -834,13 +1050,13 @@ function ContactSection({ t, lang }) {
     }
     if (!/^\S+@\S+\.\S+$/.test(email)) {
       setErr(
-        lang === "zh" ? "請輸入有效的 Email。" : "Please enter a valid email."
+        lang === "zh" ? "請輸入有效的 Email。" : "Please enter a valid email.",
       );
       return;
     }
     if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
       setErr(
-        "EmailJS is not configured. Please set NEXT_PUBLIC_EMAILJS_SERVICE_ID, NEXT_PUBLIC_EMAILJS_TEMPLATE_ID, NEXT_PUBLIC_EMAILJS_PUBLIC_KEY."
+        "EmailJS is not configured. Please set NEXT_PUBLIC_EMAILJS_SERVICE_ID, NEXT_PUBLIC_EMAILJS_TEMPLATE_ID, NEXT_PUBLIC_EMAILJS_PUBLIC_KEY.",
       );
       return;
     }
@@ -857,7 +1073,7 @@ function ContactSection({ t, lang }) {
           user_email: email,
           user_message: message,
         },
-        { publicKey: PUBLIC_KEY }
+        { publicKey: PUBLIC_KEY },
       );
 
       setOk(true);
@@ -882,134 +1098,147 @@ function ContactSection({ t, lang }) {
         <div className="flex min-h-[calc(100svh-var(--nav-offset)-1.5rem)] flex-col justify-between sm:min-h-[calc(100svh-var(--nav-offset)-3rem)] md:min-h-[calc(100svh-var(--nav-offset)-3.5rem)]">
           <div className="w-full">
             <div className="max-w-3xl">
-            <Badge
-              variant="outline"
-              className="mb-2 hidden border-violet-300 text-violet-800 dark:border-violet-500/50 dark:text-violet-200 text-[11px] sm:inline-flex sm:text-xs"
-            >
-              {t.contactEyebrow}
-            </Badge>
-            <h2 className="text-[1.45rem] sm:text-[2.05rem] md:text-[2.8rem] lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100 leading-[1.08]">
-              {t.contactTitle}
-            </h2>
-            <p className="mt-1.5 sm:mt-3 max-w-2xl text-[0.86rem] sm:text-base text-slate-600 dark:text-slate-300 leading-5 sm:leading-7">
-              {t.contactSubtitle}
-            </p>
+              <Badge
+                variant="outline"
+                className="mb-2 hidden border-violet-300 text-violet-800 dark:border-violet-500/50 dark:text-violet-200 text-[11px] sm:inline-flex sm:text-xs"
+              >
+                {t.contactEyebrow}
+              </Badge>
+              <h2 className="text-[1.45rem] sm:text-[2.05rem] md:text-[2.8rem] lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100 leading-[1.08]">
+                {t.contactTitle}
+              </h2>
+              <p className="mt-1.5 sm:mt-3 max-w-2xl text-[0.86rem] sm:text-base text-slate-600 dark:text-slate-300 leading-5 sm:leading-7">
+                {t.contactSubtitle}
+              </p>
             </div>
 
             <div className="mt-3 sm:mt-6 grid gap-3 sm:gap-5 md:grid-cols-[0.92fr_1.08fr] items-start">
               <div className="hidden sm:block space-y-3">
-              <Card className="portfolio-card-motion overflow-hidden border-violet-100 dark:border-slate-700 bg-white/95 dark:bg-slate-900/80">
-                <div className="bg-violet-950 dark:bg-violet-500 px-4 py-3 text-white">
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="h-4 w-4" />
-                    <p className="text-sm font-semibold">{t.contactStatus}</p>
-                  </div>
-                  <p className="mt-1 text-xs leading-5 text-violet-100 dark:text-violet-50">
-                    {t.contactStatusText}
-                  </p>
-                </div>
-
-                <div className="grid gap-2 p-3 sm:p-4">
-                  <a
-                    href="mailto:rickylcy8183@gmail.com"
-                    className="group flex items-center gap-3 rounded-xl border border-violet-100 bg-violet-50/60 p-3 transition-colors hover:border-violet-300 hover:bg-violet-50 dark:border-slate-700 dark:bg-slate-800/80 dark:hover:border-violet-400/50"
-                  >
-                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white text-violet-800 shadow-sm dark:bg-slate-900 dark:text-violet-200">
-                      <Mail className="h-4 w-4" />
-                    </span>
-                    <span className="min-w-0">
-                      <span className="block text-xs font-semibold uppercase tracking-[0.16em] text-violet-800 dark:text-violet-300">
-                        {t.contactDirect}
-                      </span>
-                      <span className="block truncate text-sm text-slate-700 group-hover:text-violet-900 dark:text-slate-200 dark:group-hover:text-violet-100">
-                        rickylcy8183@gmail.com
-                      </span>
-                    </span>
-                  </a>
-
-                  <div className="grid grid-cols-2 gap-2 text-xs sm:text-sm">
-                    <div className="rounded-xl border border-violet-100 bg-white/80 p-2.5 text-slate-700 dark:border-slate-700 dark:bg-slate-900/80 dark:text-slate-200">
-                      <MapPin className="mb-1 h-4 w-4 text-violet-700 dark:text-violet-300" />
-                      {t.contactLocation}
+                <Card className="portfolio-card-motion overflow-hidden border-violet-100 dark:border-slate-700 bg-white/95 dark:bg-slate-900/80">
+                  <div className="bg-violet-950 dark:bg-violet-500 px-4 py-3 text-white">
+                    <div className="flex items-center gap-2">
+                      <CheckCircle2 className="h-4 w-4" />
+                      <p className="text-sm font-semibold">{t.contactStatus}</p>
                     </div>
-                    <div className="rounded-xl border border-violet-100 bg-white/80 p-2.5 text-slate-700 dark:border-slate-700 dark:bg-slate-900/80 dark:text-slate-200">
-                      <CheckCircle2 className="mb-1 h-4 w-4 text-violet-700 dark:text-violet-300" />
-                      {t.contactAvailability}
-                    </div>
+                    <p className="mt-1 text-xs leading-5 text-violet-100 dark:text-violet-50">
+                      {t.contactStatusText}
+                    </p>
                   </div>
 
-                  <Button asChild variant="outline" className="hidden sm:inline-flex border-violet-300 dark:border-violet-400/70 text-violet-900 dark:text-violet-200">
+                  <div className="grid gap-2 p-3 sm:p-4">
                     <a
-                      href="https://www.linkedin.com/in/ricky-lau-457825206/"
-                      target="_blank"
+                      href="mailto:rickylcy8183@gmail.com"
+                      className="group flex items-center gap-3 rounded-xl border border-violet-100 bg-violet-50/60 p-3 transition-colors hover:border-violet-300 hover:bg-violet-50 dark:border-slate-700 dark:bg-slate-800/80 dark:hover:border-violet-400/50"
                     >
-                      <LinkedinIcon className="mr-2 h-4 w-4" />
-                      {t.contactLinkedInTitle}
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white text-violet-800 shadow-sm dark:bg-slate-900 dark:text-violet-200">
+                        <Mail className="h-4 w-4" />
+                      </span>
+                      <span className="min-w-0">
+                        <span className="block text-xs font-semibold uppercase tracking-[0.16em] text-violet-800 dark:text-violet-300">
+                          {t.contactDirect}
+                        </span>
+                        <span className="block truncate text-sm text-slate-700 group-hover:text-violet-900 dark:text-slate-200 dark:group-hover:text-violet-100">
+                          rickylcy8183@gmail.com
+                        </span>
+                      </span>
                     </a>
-                  </Button>
-                </div>
-              </Card>
+
+                    <div className="grid grid-cols-2 gap-2 text-xs sm:text-sm">
+                      <div className="rounded-xl border border-violet-100 bg-white/80 p-2.5 text-slate-700 dark:border-slate-700 dark:bg-slate-900/80 dark:text-slate-200">
+                        <MapPin className="mb-1 h-4 w-4 text-violet-700 dark:text-violet-300" />
+                        {t.contactLocation}
+                      </div>
+                      <div className="rounded-xl border border-violet-100 bg-white/80 p-2.5 text-slate-700 dark:border-slate-700 dark:bg-slate-900/80 dark:text-slate-200">
+                        <CheckCircle2 className="mb-1 h-4 w-4 text-violet-700 dark:text-violet-300" />
+                        {t.contactAvailability}
+                      </div>
+                    </div>
+
+                    <Button
+                      asChild
+                      variant="outline"
+                      className="hidden sm:inline-flex border-violet-300 dark:border-violet-400/70 text-violet-900 dark:text-violet-200"
+                    >
+                      <a
+                        href="https://www.linkedin.com/in/ricky-lau-457825206/"
+                        target="_blank"
+                      >
+                        <LinkedinIcon className="mr-2 h-4 w-4" />
+                        {t.contactLinkedInTitle}
+                      </a>
+                    </Button>
+                  </div>
+                </Card>
               </div>
 
               <Card className="portfolio-card-motion p-3.5 sm:p-5 border-violet-100 dark:border-slate-700 bg-white/95 dark:bg-slate-900/80">
-              <div className="mb-3 flex items-center justify-between gap-3">
-                <div>
-                  <h3 className="text-base sm:text-lg font-semibold text-slate-900 dark:text-slate-100">
-                    {t.contactFormTitle}
-                  </h3>
+                <div className="mb-3 flex items-center justify-between gap-3">
+                  <div>
+                    <h3 className="text-base sm:text-lg font-semibold text-slate-900 dark:text-slate-100">
+                      {t.contactFormTitle}
+                    </h3>
+                  </div>
+                  <span className="hidden sm:flex h-10 w-10 items-center justify-center rounded-full bg-violet-100 text-violet-800 dark:bg-violet-500/20 dark:text-violet-200">
+                    <Send className="h-4 w-4" />
+                  </span>
                 </div>
-                <span className="hidden sm:flex h-10 w-10 items-center justify-center rounded-full bg-violet-100 text-violet-800 dark:bg-violet-500/20 dark:text-violet-200">
-                  <Send className="h-4 w-4" />
-                </span>
-              </div>
-              <a
-                href="mailto:rickylcy8183@gmail.com"
-                className="mb-3 flex items-center gap-2 rounded-xl border border-violet-100 bg-violet-50/60 px-3 py-2 text-xs text-slate-700 dark:border-slate-700 dark:bg-slate-800/80 dark:text-slate-200 sm:hidden"
-              >
-                <Mail className="h-4 w-4 text-violet-700 dark:text-violet-300" />
-                <span className="font-semibold text-violet-800 dark:text-violet-300">
-                  {t.contactDirect}
-                </span>
-                <span className="min-w-0 truncate">rickylcy8183@gmail.com</span>
-              </a>
-              <p className="mb-3 flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300 sm:hidden">
-                <MapPin className="h-4 w-4 text-violet-700 dark:text-violet-300" />
-                {t.contactLocation}
-              </p>
-              <form className="space-y-2.5 sm:space-y-3" onSubmit={handleSubmit}>
-                <Input
-                  placeholder={t.contactNamePlaceholder}
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  disabled={sending}
-                  className="h-9 sm:h-10 border-violet-200 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100"
-                />
-                <Input
-                  placeholder={t.contactEmailPlaceholder}
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  disabled={sending}
-                  className="h-9 sm:h-10 border-violet-200 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100"
-                />
-                <textarea
-                  className="min-h-[74px] sm:min-h-[128px] w-full rounded-md border border-violet-200 dark:border-slate-600 bg-background dark:bg-slate-900 px-3 py-2 text-sm dark:text-slate-100"
-                  placeholder={t.contactMessagePlaceholder}
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  disabled={sending}
-                />
-                {err ? <p className="text-sm text-red-600">{err}</p> : null}
-                {ok ? <p className="text-sm text-emerald-600">{t.contactSuccess}</p> : null}
-                <Button
-                  type="submit"
-                  className="h-9 sm:h-10 w-full bg-violet-900 hover:bg-violet-800 dark:bg-violet-500 dark:hover:bg-violet-400"
-                  disabled={sending}
+                <a
+                  href="mailto:rickylcy8183@gmail.com"
+                  className="mb-3 flex items-center gap-2 rounded-xl border border-violet-100 bg-violet-50/60 px-3 py-2 text-xs text-slate-700 dark:border-slate-700 dark:bg-slate-800/80 dark:text-slate-200 sm:hidden"
                 >
-                  {sending ? "Sending..." : t.contactButton}
-                  <Send className="ml-2 h-4 w-4" />
-                </Button>
-              </form>
+                  <Mail className="h-4 w-4 text-violet-700 dark:text-violet-300" />
+                  <span className="font-semibold text-violet-800 dark:text-violet-300">
+                    {t.contactDirect}
+                  </span>
+                  <span className="min-w-0 truncate">
+                    rickylcy8183@gmail.com
+                  </span>
+                </a>
+                <p className="mb-3 flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300 sm:hidden">
+                  <MapPin className="h-4 w-4 text-violet-700 dark:text-violet-300" />
+                  {t.contactLocation}
+                </p>
+                <form
+                  className="space-y-2.5 sm:space-y-3"
+                  onSubmit={handleSubmit}
+                >
+                  <Input
+                    placeholder={t.contactNamePlaceholder}
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    disabled={sending}
+                    className="h-9 sm:h-10 border-violet-200 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100"
+                  />
+                  <Input
+                    placeholder={t.contactEmailPlaceholder}
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    disabled={sending}
+                    className="h-9 sm:h-10 border-violet-200 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100"
+                  />
+                  <textarea
+                    className="min-h-[74px] sm:min-h-[128px] w-full rounded-md border border-violet-200 dark:border-slate-600 bg-background dark:bg-slate-900 px-3 py-2 text-sm dark:text-slate-100"
+                    placeholder={t.contactMessagePlaceholder}
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    disabled={sending}
+                  />
+                  {err ? <p className="text-sm text-red-600">{err}</p> : null}
+                  {ok ? (
+                    <p className="text-sm text-emerald-600">
+                      {t.contactSuccess}
+                    </p>
+                  ) : null}
+                  <Button
+                    type="submit"
+                    className="h-9 sm:h-10 w-full bg-violet-900 hover:bg-violet-800 dark:bg-violet-500 dark:hover:bg-violet-400"
+                    disabled={sending}
+                  >
+                    {sending ? "Sending..." : t.contactButton}
+                    <Send className="ml-2 h-4 w-4" />
+                  </Button>
+                </form>
               </Card>
             </div>
           </div>
