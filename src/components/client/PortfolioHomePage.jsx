@@ -387,9 +387,25 @@ function SectionTitle({
 }
 
 function DottedSurface({ children, className = "" }) {
+  function updateCursorGlow(event) {
+    const surface = event.currentTarget;
+    const rect = surface.getBoundingClientRect();
+
+    surface.style.setProperty("--cursor-x", `${event.clientX - rect.left}px`);
+    surface.style.setProperty("--cursor-y", `${event.clientY - rect.top}px`);
+    surface.style.setProperty("--cursor-active", "1");
+  }
+
+  function hideCursorGlow(event) {
+    event.currentTarget.style.setProperty("--cursor-active", "0");
+  }
+
   return (
     <div
-      className={`relative overflow-hidden sm:rounded-3xl bg-gradient-to-br from-white to-violet-50/40 dark:from-slate-900 dark:to-slate-950 shadow-[0_20px_60px_-40px_rgba(31,38,135,0.35)] dark:shadow-[0_20px_60px_-40px_rgba(2,6,23,0.9)] ${className}`}
+      className={`portfolio-dotted-surface relative overflow-hidden sm:rounded-3xl bg-gradient-to-br from-white to-violet-50/40 dark:from-slate-900 dark:to-slate-950 shadow-[0_20px_60px_-40px_rgba(31,38,135,0.35)] dark:shadow-[0_20px_60px_-40px_rgba(2,6,23,0.9)] ${className}`}
+      onPointerEnter={updateCursorGlow}
+      onPointerMove={updateCursorGlow}
+      onPointerLeave={hideCursorGlow}
     >
       <div className="portfolio-dot-field pointer-events-none absolute inset-0 opacity-60" />
       <div className="portfolio-glow-orb portfolio-glow-orb-one" />

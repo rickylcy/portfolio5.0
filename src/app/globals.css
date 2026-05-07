@@ -223,6 +223,12 @@ html.hc button {
   border-color: #111827 !important;
 }
 
+.portfolio-dotted-surface {
+  --cursor-x: 50%;
+  --cursor-y: 50%;
+  --cursor-active: 0;
+}
+
 .portfolio-dot-field {
   background-image: radial-gradient(
     circle at 1px 1px,
@@ -232,6 +238,68 @@ html.hc button {
   background-size: 18px 18px;
   animation: portfolio-dot-drift 22s linear infinite;
   will-change: background-position;
+}
+
+.portfolio-dot-field::before,
+.portfolio-dot-field::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: var(--cursor-active);
+  transition: opacity 220ms ease;
+}
+
+.portfolio-dot-field::before {
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    rgba(109, 40, 217, 0.28) 1.55px,
+    transparent 2.15px
+  );
+  background-size: 18px 18px;
+  filter: drop-shadow(0 0 5px rgba(109, 40, 217, 0.22));
+  animation: portfolio-dot-drift 22s linear infinite;
+  mask-image: radial-gradient(
+    circle 12rem at var(--cursor-x) var(--cursor-y),
+    rgba(0, 0, 0, 0.78) 0%,
+    rgba(0, 0, 0, 0.34) 38%,
+    rgba(0, 0, 0, 0.1) 62%,
+    transparent 84%
+  );
+  -webkit-mask-image: radial-gradient(
+    circle 12rem at var(--cursor-x) var(--cursor-y),
+    rgba(0, 0, 0, 0.78) 0%,
+    rgba(0, 0, 0, 0.34) 38%,
+    rgba(0, 0, 0, 0.1) 62%,
+    transparent 84%
+  );
+}
+
+.portfolio-dot-field::after {
+  background: radial-gradient(
+    circle 13rem at var(--cursor-x) var(--cursor-y),
+    rgba(124, 58, 237, 0.055),
+    rgba(59, 130, 246, 0.025) 42%,
+    transparent 82%
+  );
+}
+
+.dark .portfolio-dot-field::before {
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    rgba(167, 139, 250, 0.32) 1.55px,
+    transparent 2.15px
+  );
+  filter: drop-shadow(0 0 5px rgba(167, 139, 250, 0.24));
+}
+
+.dark .portfolio-dot-field::after {
+  background: radial-gradient(
+    circle 13rem at var(--cursor-x) var(--cursor-y),
+    rgba(167, 139, 250, 0.07),
+    rgba(59, 130, 246, 0.035) 42%,
+    transparent 82%
+  );
 }
 
 .portfolio-glow-orb {
