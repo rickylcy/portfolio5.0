@@ -2,13 +2,13 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import ProjectImageViewer from "@/components/ProjectImageViewer";
-import { ArrowUpRight, ExternalLink, FileText, Images, ZoomIn } from "lucide-react";
+import ScreenshotFrame from "@/components/ScreenshotFrame";
+import { ArrowUpRight, ExternalLink, FileText, Images } from "lucide-react";
 
 function getProjectImages(project) {
   const list = project.images || project.gallery || [];
@@ -18,24 +18,15 @@ function getProjectImages(project) {
 
 function ImageTile({ src, title, index, className = "", onClick }) {
   return (
-    <button
-      type="button"
-      className={`group/tile relative overflow-hidden bg-muted text-left ${className}`}
+    <ScreenshotFrame
+      src={src}
+      title={title}
+      index={index}
+      caption={`Screen ${index + 1}`}
+      className={className}
       onClick={onClick}
-      aria-label={`View ${title} screenshot ${index + 1}`}
-    >
-      <Image
-        src={src}
-        alt={`${title} screenshot ${index + 1}`}
-        fill
-        className="object-cover transition duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/tile:scale-110 group-hover/tile:brightness-90"
-        sizes="(max-width:768px) 100vw, 33vw"
-      />
-      <span className="absolute inset-0 bg-gradient-to-tr from-violet-950/45 via-transparent to-white/20 opacity-0 transition-opacity duration-500 group-hover/tile:opacity-100" />
-      <span className="absolute right-2 top-2 flex h-8 w-8 translate-y-1 items-center justify-center rounded-full bg-white/90 text-violet-900 opacity-0 shadow-sm transition-all duration-300 group-hover/tile:translate-y-0 group-hover/tile:opacity-100 dark:bg-slate-900/90 dark:text-violet-200">
-        <ZoomIn className="h-4 w-4" />
-      </span>
-    </button>
+      imageSizes="(max-width:768px) 100vw, 33vw"
+    />
   );
 }
 

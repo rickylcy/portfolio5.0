@@ -4,6 +4,7 @@
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import ScreenshotFrame from "@/components/ScreenshotFrame";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -506,12 +507,6 @@ function ProjectCard({ project, lang, t, onOpenDemo }) {
       : t.personalLabel;
 
   const hasPublicDemo = Boolean(project.liveUrl);
-  const canNavigateGallery = gallery.length > 1;
-
-  function goToShot(nextIndex) {
-    if (!canNavigateGallery) return;
-    setActiveShot((nextIndex + gallery.length) % gallery.length);
-  }
   const hasCode = Boolean(project.codeUrl);
   const displayTags = (project.tags || []).slice(0, 3);
 
@@ -631,6 +626,7 @@ function DemoModal({ project, lang, t, onClose }) {
   const title = isZh ? project.slugZh : project.slug;
   const desc = isZh ? project.descZh : project.descEn;
   const gallery = project.gallery || [];
+  const canNavigateGallery = gallery.length > 1;
   const activeGalleryIndex = gallery.length
     ? Math.min(activeShot, gallery.length - 1)
     : 0;
@@ -640,6 +636,11 @@ function DemoModal({ project, lang, t, onClose }) {
   const solution = isZh ? project.solutionZh : project.solutionEn;
   const impact = isZh ? project.impactZh : project.impactEn;
   const hasPublicDemo = Boolean(project.liveUrl);
+
+  function goToShot(nextIndex) {
+    if (!canNavigateGallery) return;
+    setActiveShot((nextIndex + gallery.length) % gallery.length);
+  }
 
   return (
     <Dialog open={open} onOpenChange={(v) => !v && onClose()}>
@@ -718,15 +719,18 @@ function DemoModal({ project, lang, t, onClose }) {
                 {t.screenshots}
               </p>
 
-              <div className="relative overflow-hidden rounded-2xl border border-violet-100 bg-white shadow-inner dark:border-slate-800 dark:bg-slate-100">
+              <div className="relative">
                 <div className="relative aspect-[2/1] min-h-[220px]">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <Image
+                  <div className="absolute inset-0">
+                    <ScreenshotFrame
                       src={activeGalleryImage}
-                      alt={`${title} screenshot ${activeGalleryIndex + 1}`}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 70vw"
-                      className="bg-white object-contain object-center"
+                      title={title}
+                      index={activeGalleryIndex}
+                      total={gallery.length}
+                      fit="contain"
+                      imageSizes="(max-width: 768px) 100vw, 70vw"
+                      caption={project.period}
+                      className="h-full w-full"
                     />
                   </div>
 
@@ -756,9 +760,6 @@ function DemoModal({ project, lang, t, onClose }) {
                   ) : null}
                 </div>
 
-                <span className="absolute bottom-2 left-2 rounded-full bg-white/90 px-2.5 py-1 text-xs font-semibold text-violet-900 shadow-sm dark:bg-slate-900/90 dark:text-violet-200">
-                  {activeGalleryIndex + 1} / {gallery.length}
-                </span>
               </div>
 
               <div className="mt-3 flex gap-2 overflow-x-auto rounded-2xl border border-violet-100 bg-white/85 p-2 dark:border-slate-800 dark:bg-slate-900/80">

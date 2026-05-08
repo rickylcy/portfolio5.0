@@ -1,10 +1,18 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { useLang } from "@/lib/lang";
+import {
+  BriefcaseBusiness,
+  FileText,
+  Home,
+  Mail,
+  UserRound,
+} from "lucide-react";
 
 const navCopy = {
   en: {
@@ -25,15 +33,38 @@ const navCopy = {
 
 export default function NavBar() {
   const { lang } = useLang();
+  const pathname = usePathname();
   const t = navCopy[lang] || navCopy.en;
   const headerRef = useRef(null);
+  const [activeSection, setActiveSection] = useState("home");
 
   const links = [
-    { href: "/#home", label: t.home },
-    { href: "/#about", label: t.about },
-    { href: "/#projects", label: t.projects },
-    { href: "/#resume", label: t.resume },
+    { href: "/#home", label: t.home, section: "home", icon: Home },
+    { href: "/#about", label: t.about, section: "about", icon: UserRound },
+    {
+      href: "/#projects",
+      label: t.projects,
+      section: "projects",
+      icon: BriefcaseBusiness,
+    },
+    { href: "/#resume", label: t.resume, section: "resume", icon: FileText },
   ];
+
+  const mobileLinks = [
+    ...links,
+    { href: "/#contact", label: t.contact, section: "contact", icon: Mail },
+  ];
+
+  function isActive(section) {
+    if (pathname === "/projects") return section === "projects";
+    if (pathname === "/resume") return section === "resume";
+    if (pathname !== "/") return section === "home";
+    return activeSection === section;
+  }
+
+  function handleNavClick(section) {
+    setActiveSection(section);
+  }
 
   useEffect(() => {
     const el = headerRef.current;
@@ -56,6 +87,38 @@ export default function NavBar() {
       window.removeEventListener("resize", updateNavOffset);
     };
   }, []);
+
+  useEffect(() => {
+    if (pathname !== "/") return;
+
+    const sectionIds = ["home", "about", "projects", "resume", "contact"];
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter(Boolean);
+
+    if (!sections.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+        if (visible?.target?.id) {
+          setActiveSection(visible.target.id);
+        }
+      },
+      {
+        root: null,
+        rootMargin: "-35% 0px -45% 0px",
+        threshold: [0.15, 0.35, 0.55],
+      },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, [pathname]);
 
   return (
     <header
@@ -82,20 +145,43 @@ export default function NavBar() {
           </Link>
 
           <nav className="hidden md:flex items-center gap-6">
-            {links.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-sm font-semibold text-slate-700 dark:text-slate-200 hover:text-violet-900 dark:hover:text-violet-200"
-              >
-                {link.label}
-              </Link>
-            ))}
+            {links.map((link) => {
+              const active = isActive(link.section);
+
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => handleNavClick(link.section)}
+                  aria-current={active ? "page" : undefined}
+                  className={`relative rounded-full px-1.5 py-1 text-sm font-semibold transition-colors ${
+                    active
+                      ? "text-violet-950 dark:text-violet-100"
+                      : "text-slate-700 hover:text-violet-900 dark:text-slate-200 dark:hover:text-violet-200"
+                  }`}
+                >
+                  {active ? (
+                    <span className="absolute -bottom-1 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-violet-800 dark:bg-violet-300" />
+                  ) : null}
+                  {link.label}
+                </Link>
+              );
+            })}
             <Button
               asChild
-              className="rounded-md bg-violet-950 hover:bg-violet-900 dark:bg-violet-500 dark:hover:bg-violet-400 px-6"
+              variant={isActive("contact") ? "secondary" : "default"}
+              className={`rounded-md px-6 ${
+                isActive("contact")
+                  ? "border border-violet-200 bg-violet-100 text-violet-950 hover:bg-violet-100 dark:border-violet-400/40 dark:bg-violet-500/20 dark:text-violet-100"
+                  : "bg-violet-950 hover:bg-violet-900 dark:bg-violet-500 dark:hover:bg-violet-400"
+              }`}
             >
-              <Link href="/#contact" className="whitespace-nowrap">
+              <Link
+                href="/#contact"
+                className="whitespace-nowrap"
+                onClick={() => handleNavClick("contact")}
+                aria-current={isActive("contact") ? "page" : undefined}
+              >
                 {t.contact}
               </Link>
             </Button>
@@ -108,23 +194,41 @@ export default function NavBar() {
               size="sm"
               className="h-8 border-violet-300 dark:border-violet-400/70 text-violet-900 dark:text-violet-200 px-2"
             >
-              <Link href="/#contact" className="whitespace-nowrap text-[11px]">
+              <Link
+                href="/#contact"
+                className="whitespace-nowrap text-[11px]"
+                onClick={() => handleNavClick("contact")}
+              >
                 {t.contact}
               </Link>
             </Button>
           </div>
         </div>
 
-        <nav className="md:hidden mt-2 pb-1 grid grid-cols-4 gap-2 text-[11px]">
-          {links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="text-slate-600 dark:text-slate-300 rounded-lg bg-white/75 dark:bg-slate-900/70 py-1.5 text-center"
-            >
-              {link.label}
-            </Link>
-          ))}
+        <nav className="md:hidden mt-2 pb-1">
+          <div className="grid grid-cols-5 gap-1.5 rounded-2xl bg-white/82 p-1.5 text-[10px] shadow-[0_12px_32px_-26px_rgba(31,38,135,0.55)] backdrop-blur dark:bg-slate-900/78 dark:shadow-[0_12px_32px_-26px_rgba(2,6,23,0.95)]">
+            {mobileLinks.map((link) => {
+              const Icon = link.icon;
+              const active = isActive(link.section);
+
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => handleNavClick(link.section)}
+                  aria-current={active ? "page" : undefined}
+                  className={`flex min-h-11 flex-col items-center justify-center gap-1 rounded-xl px-1 py-1.5 font-semibold transition-all ${
+                    active
+                      ? "bg-violet-950 text-white shadow-sm dark:bg-violet-500 dark:text-white"
+                      : "text-slate-600 hover:bg-violet-50 hover:text-violet-950 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-violet-100"
+                  }`}
+                >
+                  <Icon className="h-3.5 w-3.5" />
+                  <span className="max-w-full truncate">{link.label}</span>
+                </Link>
+              );
+            })}
+          </div>
         </nav>
       </div>
     </header>

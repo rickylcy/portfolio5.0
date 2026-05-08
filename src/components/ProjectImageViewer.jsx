@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import ScreenshotFrame from "@/components/ScreenshotFrame";
 import {
   Dialog,
   DialogContent,
@@ -65,20 +66,21 @@ export default function ProjectImageViewer({
         </div>
 
         <div className="bg-[radial-gradient(circle_at_1px_1px,rgba(109,40,217,0.12)_1px,transparent_0)] bg-[length:18px_18px] p-3 dark:bg-[radial-gradient(circle_at_1px_1px,rgba(167,139,250,0.16)_1px,transparent_0)] sm:p-5">
-          <div className="relative overflow-hidden rounded-2xl border border-violet-100 bg-white shadow-inner dark:border-slate-800 dark:bg-slate-100">
+          <div className="relative">
             <div className="relative aspect-[2/1] max-h-[68vh] min-h-[240px]">
-              <div className="absolute inset-0 flex items-center justify-center">
-                {activeImage ? (
-                  <Image
-                    src={activeImage}
-                    alt={`${title} screenshot ${safeIndex + 1}`}
-                    fill
-                    className="bg-white object-contain object-center"
-                    sizes="95vw"
-                    priority
-                  />
-                ) : null}
-              </div>
+              {activeImage ? (
+                <ScreenshotFrame
+                  src={activeImage}
+                  title={title}
+                  index={safeIndex}
+                  total={images.length}
+                  fit="contain"
+                  imageSizes="95vw"
+                  priority
+                  caption={description || "Product screenshot"}
+                  className="h-full w-full"
+                />
+              ) : null}
 
               {canNavigate ? (
                 <>
